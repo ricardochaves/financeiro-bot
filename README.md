@@ -86,7 +86,7 @@ A key `message` define o que e para quem ele vai enviar a notificação. O `user
 
 Bom, tudo isso é inútil se a gente não tiver relatórios, certo?
 
-No próprio administrativo você já tem um filtros para conversar ver algumas coisas básicas. Além disso eu estou montando um aplicativo que faz acesso via API ao nosso sistema e entrega alguns relatório básicos. Esse aplicativo está nesse repositório.
+No próprio administrativo você já tem um filtros para conversar ver algumas coisas básicas. Além disso eu estou montando um aplicativo que faz acesso via API ao nosso sistema e entrega alguns relatório básicos. Esse aplicativo está [nesse repositório](https://github.com/ricardochaves/FinanceiroApp).
 
 ## Sentry
 
