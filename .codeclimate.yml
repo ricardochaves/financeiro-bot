@@ -1,0 +1,18 @@
+engines:
+  pep8:
+    enabled: true
+
+  markdownlint:
+    enabled: true
+
+  sonar-python:
+    enabled: true
+  
+  csslint:
+    enabled: true
+
+exclude_patterns:
+  - "**/test/"
+  - "**/.venv/"
+  - "**/.vscode/"
+  - "**/staticfiles/"

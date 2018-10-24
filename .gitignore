@@ -1,0 +1,11 @@
+*.pyc
+.venv
+.vscode
+*.sqlite3
+.DS_Store
+staticfiles/*
+.coverage
+media/*
+.env
+.DS_Store
+bot-financeiro-1534199278803-f2397fd530bc.json

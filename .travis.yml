@@ -1,0 +1,16 @@
+language: python
+python:
+  - 3.4
+  - 3.5
+  - 3.6
+services:
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE base_site;'
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements_dev.txt
+script:
+  - coverage run --source='.' manage.py test
+after_success:
+  - coveralls
