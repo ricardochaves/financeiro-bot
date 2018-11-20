@@ -1,3 +1,7 @@
+import logging
+
+from django.db.models import Sum
+from django.shortcuts import render
 from django_filters import rest_framework as f_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -53,3 +57,14 @@ class RecordsViewSet(viewsets.ModelViewSet):
     )
     filter_backends = (filters.OrderingFilter, DjangoFilterBackend)
     filterset_class = RecordsFilter
+
+
+def index(request):
+
+    month = request.GET.get("q", 11)
+
+    r = Records.objects.values("category__name").filter(create_date_time__month=month).annotate(sum_score=Sum("debit"))
+
+    result = [[x["category__name"], x["sum_score"]] for x in r]
+
+    return render(request, "mainapp/index.html", {"data": result})

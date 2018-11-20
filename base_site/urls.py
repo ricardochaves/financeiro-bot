@@ -24,9 +24,9 @@ from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework_swagger.views import get_swagger_view
 
 from mainapp import views
-from rest_framework_swagger.views import get_swagger_view
 
 router = routers.DefaultRouter()
 router.register(r"records", views.RecordsViewSet)
@@ -42,6 +42,7 @@ urlpatterns = (
         url(r"^api/v1/api-auth/", include("rest_framework.urls")),
         path(r"api/v1/api-token-auth/", obtain_jwt_token),
         path(r"api/v1/api-token-refresh/", refresh_jwt_token),
+        path("", views.index, name="index"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
