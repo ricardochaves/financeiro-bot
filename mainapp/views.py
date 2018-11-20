@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render
 from django_filters import rest_framework as f_filters
@@ -59,12 +60,33 @@ class RecordsViewSet(viewsets.ModelViewSet):
     filterset_class = RecordsFilter
 
 
+@login_required
 def index(request):
 
-    month = request.GET.get("q", 11)
+    data = [
+        {"month": "Janeiro", "number": "01", "data": []},
+        {"month": "Fevereiro", "number": "02", "data": []},
+        {"month": "Março", "number": "03", "data": []},
+        {"month": "Abril", "number": "04", "data": []},
+        {"month": "Maio", "number": "05", "data": []},
+        {"month": "Junho", "number": "06", "data": []},
+        {"month": "Julho", "number": "07", "data": []},
+        {"month": "Agosto", "number": "08", "data": []},
+        {"month": "Setembro", "number": "09", "data": []},
+        {"month": "Outubro", "number": "10", "data": []},
+        {"month": "Novembro", "number": "11", "data": []},
+        {"month": "Dezembro", "number": "12", "data": []},
+    ]
 
-    r = Records.objects.values("category__name").filter(create_date_time__month=month).annotate(sum_score=Sum("debit"))
+    year = request.GET.get("y", 2018)
 
-    result = [[x["category__name"], x["sum_score"]] for x in r]
+    for item in data:
+        result = (
+            Records.objects.values("category__name")
+            .filter(create_date_time__month=item["number"], create_date_time__year=year)
+            .annotate(sum_score=Sum("debit"))
+        )
 
-    return render(request, "mainapp/index.html", {"data": result})
+        item["data"] = [[x["category__name"], x["sum_score"]] for x in result]
+
+    return render(request, "mainapp/index.html", {"data": data, "year": year})
