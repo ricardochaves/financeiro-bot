@@ -24,3 +24,6 @@ S_TELEGRAN_TOKEN = os.getenv("TELEGRAN_TOKEN")
 S_ALLOWED_HOSTS = ["*"]
 
 sentry_sdk.init(dsn=os.getenv("SENTRY_DNS"), integrations=[DjangoIntegration()])
+
+
+S_SECRET_KEY = "3ot&@+6-ue!i)jbx-adyr-+^a(ik)$*y^tb$(98f2$1k*=$7zi"

@@ -16,6 +16,7 @@ import os
 from base_site.database import S_ALLOWED_HOSTS
 from base_site.database import S_DATABASES
 from base_site.database import S_DEBUG
+from base_site.database import S_SECRET_KEY
 from base_site.database import S_SERVICE_ACCOUNT_FILE
 from base_site.database import S_TELEGRAN_TOKEN
 
@@ -25,6 +26,7 @@ SERVICE_ACCOUNT_FILE = S_SERVICE_ACCOUNT_FILE
 TELEGRAN_TOKEN = S_TELEGRAN_TOKEN
 ALLOWED_HOSTS = S_ALLOWED_HOSTS
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,7 +35,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "3ot&@+6-ue!i)jbx-adyr-+^a(ik)$*y^tb$(98f2$1k*=$7zi"
+SECRET_KEY = S_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True  # on database.py
@@ -153,3 +155,5 @@ Q_CLUSTER = {
     "bulk": 10,
     "orm": "default",
 }
+
+LOGIN_URL = "/ricardo/login/"
