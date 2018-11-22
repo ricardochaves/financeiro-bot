@@ -43,6 +43,8 @@ urlpatterns = (
         path(r"api/v1/api-token-auth/", obtain_jwt_token),
         path(r"api/v1/api-token-refresh/", refresh_jwt_token),
         path("", views.index, name="index"),
+        path("isabele", views.isabele, name="isabele"),
+        path("meta100", views.meta100, name="meta100"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

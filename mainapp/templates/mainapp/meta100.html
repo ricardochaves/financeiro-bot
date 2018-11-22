@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <header>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </header>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col"><h1>Meta 100 do ano de 2018</h1></div>
+      </div>
+      <div class="row">
+        {% for item in data %}
+        <div class="col">
+          <h3>{{ item.month }}</h3>
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Débito</th>
+                <th scope="col">Crédito</th>
+                <th scope="col">Final</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in item.data %}
+
+              <tr>
+                <th scope="row">{{ i.day }}</th>
+                <td>{{ i.sumdebit }}</td>
+                <td>{{ i.sumcredit }}</td>
+                <td>{{ i.final }}</td>
+              </tr>
+              {% endfor %}
+
+              <tr>
+                <th scope="row">Total</th>
+
+                <td>{{ item.totaldebit }}</td>
+                <td>{{ item.totalcredit }}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
