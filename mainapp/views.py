@@ -86,7 +86,7 @@ def index(request):
     for item in data:
         result = (
             Records.objects.values("category__name")
-            .filter(payment_date_time__month=item["number"], payment_date_time__year=year)
+            .filter(payment_date_time__month=item["number"], payment_date_time__year=year, type_entry__id=1)
             .annotate(sum_score=Sum("debit"))
         )
 
