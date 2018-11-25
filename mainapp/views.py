@@ -11,6 +11,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework import viewsets
 
+from mainapp.models import Category
 from mainapp.models import Records
 from mainapp.serializers import RecordsSerializer
 
@@ -63,8 +64,14 @@ class RecordsViewSet(viewsets.ModelViewSet):
     filterset_class = RecordsFilter
 
 
-@login_required
 def index(request):
+    categorys = Category.objects.all()
+
+    return render(request, "mainapp/index.html", {"categorys": categorys})
+
+
+@login_required
+def variableyear(request):
 
     data = [
         {"month": "Janeiro", "number": "01", "data": []},
@@ -92,7 +99,7 @@ def index(request):
 
         item["data"] = [[x["category__name"], x["sum_score"] if x["sum_score"] else 0] for x in result]
 
-    return render(request, "mainapp/index.html", {"data": data, "year": year})
+    return render(request, "mainapp/variableyear.html", {"data": data, "year": year})
 
 
 @login_required
@@ -187,3 +194,32 @@ def meta100(request):
             item["totaldebit"] += sumdebit
 
     return render(request, "mainapp/meta100.html", {"data": data})
+
+
+@login_required
+def bycategory(request):
+
+    data = []
+
+    year = request.GET.get("y", 2018)
+    categoryid = request.GET.get("c", 1)
+
+    result = (
+        Records.objects.annotate(month=TruncMonth("create_date_time"))
+        .values("month", "category")
+        .filter(create_date_time__year=year, category_id=categoryid)
+        .annotate(sumdebit=Sum("debit"))
+        .annotate(sumcredit=Sum("credit"))
+        .order_by()
+    )
+
+    for item in result:
+
+        sumcredit = item["sumcredit"] if item["sumcredit"] else 0
+        sumdebit = item["sumdebit"] if item["sumdebit"] else 0
+
+        data.append([item["month"], sumdebit, sumcredit, sumcredit - sumdebit])
+
+    category = Category.objects.get(pk=item["category"])
+
+    return render(request, "mainapp/bycategory.html", {"data": data, "category": category})
