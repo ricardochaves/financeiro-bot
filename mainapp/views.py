@@ -200,6 +200,7 @@ def meta100(request):
 def bycategory(request):
 
     data = []
+    category = None
 
     year = request.GET.get("y", 2018)
     categoryid = request.GET.get("c", 1)
@@ -220,6 +221,6 @@ def bycategory(request):
 
         data.append([item["month"], sumdebit, sumcredit, sumcredit - sumdebit])
 
-    category = Category.objects.get(pk=item["category"])
+        category = Category.objects.get(pk=item["category"])
 
     return render(request, "mainapp/bycategory.html", {"data": data, "category": category})
