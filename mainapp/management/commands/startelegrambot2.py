@@ -15,6 +15,7 @@ from telepot.aio.loop import MessageLoop
 
 from mainapp.calendar import Calendar
 from mainapp.command_flow import CommandFlow
+from mainapp.goals import CalculateGoals
 from mainapp.manageconnections import make_sure_mysql_usable
 from mainapp.models import FullCommand
 
@@ -45,6 +46,7 @@ class Lover(telepot.aio.helper.ChatHandler):
         self.cal = Calendar()
         self._edit_msg_ident = None
         self._editor = None
+        self.golas = None
 
     async def _cancel_last(self):
         if self._editor:
@@ -57,6 +59,7 @@ class Lover(telepot.aio.helper.ChatHandler):
         result = self.flow.next(msg)
         if result["done"]:
             await self._close()
+            self.golas.execute_goals()
 
         logging.warning(f'message: {result["message"]}')
         await self._send_msg(result["message"], keyboard=result["keyboard"])
@@ -96,6 +99,7 @@ class Lover(telepot.aio.helper.ChatHandler):
             return
 
         if not self.flow:
+            self.golas = CalculateGoals(msg["from"]["id"])
             self.flow = CommandFlow(msg["text"])
             logging.warning("Peguei o comando %s e já guardei" % msg["text"])
 

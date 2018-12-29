@@ -88,6 +88,10 @@ Bom, tudo isso é inútil se a gente não tiver relatórios, certo?
 
 No próprio administrativo você já tem um filtros para conversar ver algumas coisas básicas. Além disso eu estou montando um aplicativo que faz acesso via API ao nosso sistema e entrega alguns relatório básicos. Esse aplicativo está [nesse repositório](https://github.com/ricardochaves/FinanceiroApp).
 
+## Meta
+
+O bot possuí uma meta de 770 reais por semana de custo variável, ele vai informar quanto você ainda pode gastar na semana para ficar dentro da meta.
+
 ## Sentry
 
 O projeto loga os erros no [Sentry](https://sentry.io/) e para isso você vai precisar configurar um projeto seu. No site deles você acham mais detalhes.
