@@ -7,7 +7,7 @@ from django.conf import settings
 from django.db.models import Func
 from django.db.models import IntegerField
 from django.db.models import Sum
-
+from isoweek import Week
 from mainapp.models import Records
 
 
@@ -24,12 +24,13 @@ class CalculateGoals:
     def execute_goals(self):
 
         week_day = datetime.datetime.now().isocalendar()[1]
+        w = Week(datetime.datetime.now().year, week_day)
+        start_date = w.monday()
+        end_date = w.sunday()
 
-        logging.warning(f"week_day: {week_day}")
-
-        result = Records.objects.filter(create_date_time__week=week_day, type_entry__id=1).annotate(
-            total_value=Sum("debit")
-        )
+        result = Records.objects.filter(
+            create_date_time__date__range=(start_date, end_date), type_entry__id=1
+        ).annotate(total_value=Sum("debit"))
 
         try:
 
@@ -47,7 +48,8 @@ class CalculateGoals:
 
             loop.run_until_complete(
                 bot.sendMessage(
-                    self.user_id, f"Você ainda pode gastar {can_use} doas 770 reais estipulados para a semana."
+                    self.user_id,
+                    f"Você ainda pode gastar {can_use} doas 770 reais estipulados para a semana.",
                 )
             )
 

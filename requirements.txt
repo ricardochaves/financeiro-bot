@@ -16,3 +16,4 @@ django-rest-swagger
 sentry_sdk
 django-q
 arrow
+isoweek
