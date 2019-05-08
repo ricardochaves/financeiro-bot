@@ -7,10 +7,19 @@ from mainapp.models import FullCommand
 from mainapp.models import Records
 from mainapp.models import TypeEntry
 
-admin.site.register(TypeEntry)
-admin.site.register(FamilyMember)
-admin.site.register(Category)
 admin.site.register(FullCommand)
+
+
+class CategoryAdmin(ImportExportModelAdmin):
+    pass
+
+
+class FamilyMemberAdmin(ImportExportModelAdmin):
+    pass
+
+
+class TypeEntryAdmin(ImportExportModelAdmin):
+    pass
 
 
 class RecordsAdmin(ImportExportModelAdmin):
@@ -29,3 +38,6 @@ class RecordsAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Records, RecordsAdmin)
+admin.site.register(TypeEntry, TypeEntryAdmin)
+admin.site.register(FamilyMember, FamilyMemberAdmin)
+admin.site.register(Category, CategoryAdmin)
