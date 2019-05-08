@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: base_site
     command: --default-authentication-plugin=mysql_native_password
-  web_bot:
+  web:
     build: .
     ports:
       - "5005:5005"

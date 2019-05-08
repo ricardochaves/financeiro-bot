@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "rest_framework_swagger",
     "django_filters",
     "django_q",
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -98,7 +99,9 @@ WSGI_APPLICATION = "base_site.wsgi.application"
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -144,7 +147,10 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
-JWT_AUTH = {"JWT_ALLOW_REFRESH": True, "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=604800)}
+JWT_AUTH = {
+    "JWT_ALLOW_REFRESH": True,
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=604800),
+}
 
 Q_CLUSTER = {
     "name": "Schedule",
