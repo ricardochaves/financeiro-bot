@@ -13,7 +13,7 @@ services:
       - "5005:5005"
     env_file: .env
     volumes:
-      - .:/base_site
+      - .:/app
     depends_on:
       - db
-    command: ["./wait-for-it.sh", "db:3306", "-t", "120", "--", "./base_site.sh"]
+    command: ["./wait-for-it.sh", "${DB_HOST}:${DB_PORT}", "-t", "120", "--", "./base_site.sh"]

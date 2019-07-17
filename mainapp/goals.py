@@ -8,6 +8,7 @@ from django.db.models import Func
 from django.db.models import IntegerField
 from django.db.models import Sum
 from isoweek import Week
+
 from mainapp.models import Records
 
 
@@ -53,5 +54,5 @@ class CalculateGoals:
                 )
             )
 
-        except BaseException:
-            logging.exception("Error na meta")
+        except BaseException as e:
+            logging.exception("Error na meta", e)

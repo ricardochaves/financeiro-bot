@@ -1,23 +1,22 @@
-
 import logging
 import sys
 from datetime import datetime
 from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
-from pytz import timezone
-
 from mainapp.google_service import Google
 from mainapp.models import Category
 from mainapp.models import FamilyMember
+from mainapp.models import FullCommand
 from mainapp.models import Records
 from mainapp.models import TypeEntry
+from pytz import timezone
 
 logging.basicConfig(stream=sys.stdout)
 
 
 class Register:
-    def __init__(self, full_command):
+    def __init__(self, full_command: FullCommand):
         self.full_command = full_command
         self.entry_date_value = None
         self.payment_date_value = None
@@ -51,7 +50,7 @@ class Register:
         return self.name is None
 
     def need_description(self):
-        return self.description is None
+        return self.description == ""
 
     def need_type(self):
         return self.type_entry is None

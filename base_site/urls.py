@@ -20,13 +20,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+
+from mainapp import views
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_swagger.views import get_swagger_view
-
-from mainapp import views
 
 router = routers.DefaultRouter()
 router.register(r"records", views.RecordsViewSet)
@@ -44,8 +44,6 @@ urlpatterns = (
         path(r"api/v1/api-token-refresh/", refresh_jwt_token),
         path("", views.index, name="index"),
         path("variableyear", views.variableyear, name="variableyear"),
-        path("isabele", views.isabele, name="isabele"),
-        path("meta100", views.meta100, name="meta100"),
         path("bycategory", views.bycategory, name="bycategory"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
