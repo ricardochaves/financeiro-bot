@@ -5,6 +5,11 @@ import sys
 import telepot.aio
 import telepot.aio.helper
 from django.conf import settings
+from mainapp.calendar import Calendar
+from mainapp.command_flow import CommandFlow
+from mainapp.goals import CalculateGoals
+from mainapp.manageconnections import make_sure_mysql_usable
+from mainapp.models import FullCommand
 from telepot import glance
 from telepot import message_identifier
 from telepot.aio.delegate import create_open
@@ -12,12 +17,6 @@ from telepot.aio.delegate import include_callback_query_chat_id
 from telepot.aio.delegate import pave_event_space
 from telepot.aio.delegate import per_chat_id
 from telepot.aio.loop import MessageLoop
-
-from mainapp.calendar import Calendar
-from mainapp.command_flow import CommandFlow
-from mainapp.goals import CalculateGoals
-from mainapp.manageconnections import make_sure_mysql_usable
-from mainapp.models import FullCommand
 
 logging.basicConfig(stream=sys.stdout)
 
@@ -130,7 +129,7 @@ class Lover(telepot.aio.helper.ChatHandler):
 
 
 bot = telepot.aio.DelegatorBot(
-    settings.TELEGRAN_TOKEN,
+    settings.TELEGRAM_TOKEN,
     [
         include_callback_query_chat_id(pave_event_space())(
             per_chat_id(types=["private"]), create_open, Lover, timeout=10
