@@ -12,7 +12,7 @@ pytest-django = "*"
 djangorestframework-stubs = "*"
 
 [packages]
-django = "*"
+django = ">=2.2.4"
 mysqlclient = "*"
 honcho = "*"
 gunicorn = "*"
