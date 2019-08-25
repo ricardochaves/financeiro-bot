@@ -18,12 +18,12 @@ from base_site.database import S_DATABASES
 from base_site.database import S_DEBUG
 from base_site.database import S_SECRET_KEY
 from base_site.database import S_SERVICE_ACCOUNT_FILE
-from base_site.database import S_TELEGRAN_TOKEN
+from base_site.database import S_TELEGRAM_TOKEN
 
 DATABASES = S_DATABASES
 DEBUG = S_DEBUG
 SERVICE_ACCOUNT_FILE = S_SERVICE_ACCOUNT_FILE
-TELEGRAN_TOKEN = S_TELEGRAN_TOKEN
+TELEGRAM_TOKEN = S_TELEGRAM_TOKEN
 ALLOWED_HOSTS = S_ALLOWED_HOSTS
 
 
@@ -62,6 +62,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -99,9 +100,7 @@ WSGI_APPLICATION = "base_site.wsgi.application"
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -135,7 +134,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 GOOGLE_SPREADSHEET_ID = "1yO24GqWCwEW3uFHtqoqTvWgSsvZlQfi5QufTqPZq378"
-GOOGLW_RANGE_NAME = "Fluxo Caixa!A1050:I"
+GOOGLE_RANGE_NAME = "Fluxo Caixa!A1050:I"
 
 
 REST_FRAMEWORK = {
@@ -147,10 +146,7 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
-JWT_AUTH = {
-    "JWT_ALLOW_REFRESH": True,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=604800),
-}
+JWT_AUTH = {"JWT_ALLOW_REFRESH": True, "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=604800)}
 
 Q_CLUSTER = {
     "name": "Schedule",
