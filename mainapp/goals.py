@@ -8,7 +8,6 @@ from django.db.models import Func
 from django.db.models import IntegerField
 from django.db.models import Sum
 from isoweek import Week
-
 from mainapp.models import Records
 
 
@@ -45,12 +44,11 @@ class CalculateGoals:
 
             loop = asyncio.get_event_loop()
 
-            bot = telepot.aio.Bot(settings.TELEGRAN_TOKEN)
+            bot = telepot.aio.Bot(settings.TELEGRAM_TOKEN)
 
             loop.run_until_complete(
                 bot.sendMessage(
-                    self.user_id,
-                    f"Você ainda pode gastar {can_use} doas 770 reais estipulados para a semana.",
+                    self.user_id, f"Você ainda pode gastar {can_use} doas 770 reais estipulados para a semana."
                 )
             )
 
