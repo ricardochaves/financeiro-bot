@@ -28,7 +28,7 @@ class Google:
         value_range_body = {
             "values": [values.split(";")],
             "majorDimension": "DIMENSION_UNSPECIFIED",
-            "range": settings.GOOGLW_RANGE_NAME,
+            "range": settings.GOOGLE_RANGE_NAME,
         }
         service = self.get_service()
 
@@ -37,7 +37,7 @@ class Google:
             .values()
             .append(
                 spreadsheetId=settings.GOOGLE_SPREADSHEET_ID,
-                range=settings.GOOGLW_RANGE_NAME,
+                range=settings.GOOGLE_RANGE_NAME,
                 valueInputOption=value_input_option,
                 responseDateTimeRenderOption="SERIAL_NUMBER",
                 insertDataOption=insert_data_option,
