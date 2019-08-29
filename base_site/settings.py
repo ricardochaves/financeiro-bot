@@ -16,6 +16,7 @@ import os
 from base_site.database import S_ALLOWED_HOSTS
 from base_site.database import S_DATABASES
 from base_site.database import S_DEBUG
+from base_site.database import S_LOGGING_FILE
 from base_site.database import S_SECRET_KEY
 from base_site.database import S_SERVICE_ACCOUNT_FILE
 from base_site.database import S_TELEGRAM_TOKEN
@@ -159,3 +160,17 @@ Q_CLUSTER = {
 }
 
 LOGIN_URL = "/ricardo/login/"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "class": "logging.FileHandler",
+            "filename": S_LOGGING_FILE,
+        }
+    },
+    "loggers": {"django": {"handlers": ["file"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True}},
+}
