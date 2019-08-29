@@ -106,6 +106,9 @@ class Register:
 
     def _send_google(self, date, val_credit, val_debt, description):
 
+        desc = self.description if self.description else ""
+        desc += description
+
         values = "%s;%s;%s;%s;%s;%s;%s;%s;%s" % (
             self._get_entry_date_value(),
             date,
@@ -114,7 +117,7 @@ class Register:
             "",
             self.category,
             self.name,
-            self.description + description,
+            desc,
             self.type_entry,
         )
         logging.warning(f"Valores para a planilha: {values}")
