@@ -89,10 +89,6 @@ class Lover(telepot.aio.helper.ChatHandler):
         make_sure_mysql_usable()
         logger.info(msg)
 
-        if msg["text"] == "/calendar":
-            await self._send_msg("Selecione o dia", keyboard=self.cal.get_calendar())
-            return
-
         if msg["text"] == "/c":
             commands = FullCommand.objects.all()
             msg = "\n".join([c.command for c in commands])
