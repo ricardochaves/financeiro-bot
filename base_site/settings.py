@@ -172,5 +172,5 @@ LOGGING = {
             "filename": S_LOGGING_FILE,
         }
     },
-    "loggers": {"django": {"handlers": ["file"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True}},
+    "loggers": {"": {"handlers": ["file"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True}},
 }
