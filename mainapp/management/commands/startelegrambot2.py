@@ -18,7 +18,9 @@ from telepot.aio.delegate import pave_event_space
 from telepot.aio.delegate import per_chat_id
 from telepot.aio.loop import MessageLoop
 
-logging.basicConfig(stream=sys.stdout)
+# logging.basicConfig(stream=sys.stdout)
+
+logger = logging.getLogger(__name__)
 
 """
 $ python3.5 lovera.py <token>
@@ -60,7 +62,7 @@ class Lover(telepot.aio.helper.ChatHandler):
             await self._close()
             self.golas.execute_goals()
 
-        logging.warning(f'message: {result["message"]}')
+        logger.warning(f'message: {result["message"]}')
         await self._send_msg(result["message"], keyboard=result["keyboard"])
 
     async def _close(self):
@@ -70,13 +72,13 @@ class Lover(telepot.aio.helper.ChatHandler):
         try:
             await self._cancel_last()
         except BaseException:
-            logging.warning("Não deu.")
+            logger.warning("Não deu.")
 
         await self._send_msg("Seu registro foi efetuado com sucesso")
         try:
             self.close()
         except BaseException as e:
-            logging.warning(f"Erro:{e}")
+            logger.warning(f"Erro:{e}")
 
     async def _send_msg(self, msg, keyboard=None):
         sent = await self.sender.sendMessage(msg, reply_markup=keyboard)
@@ -85,7 +87,7 @@ class Lover(telepot.aio.helper.ChatHandler):
 
     async def on_chat_message(self, msg):
         make_sure_mysql_usable()
-        logging.warning(msg)
+        logger.warning(msg)
 
         if msg["text"] == "/calendar":
             await self._send_msg("Selecione o dia", keyboard=self.cal.get_calendar())
@@ -100,12 +102,12 @@ class Lover(telepot.aio.helper.ChatHandler):
         if not self.flow:
             self.golas = CalculateGoals(msg["from"]["id"])
             self.flow = CommandFlow(msg["text"])
-            logging.warning("Peguei o comando %s e já guardei" % msg["text"])
+            logger.warning("Peguei o comando %s e já guardei" % msg["text"])
 
         await self._send_or_close(msg["text"])
 
     async def on_callback_query(self, msg):
-        logging.warning(msg)
+        logger.warning(msg)
         query_id, from_id, query_data = glance(msg, flavor="callback_query")
 
         if query_data == "c_X":
@@ -139,6 +141,6 @@ bot = telepot.aio.DelegatorBot(
 
 loop = asyncio.get_event_loop()
 loop.create_task(MessageLoop(bot).run_forever())
-logging.warning("Listening ...")
+logger.warning("Listening ...")
 
 loop.run_forever()
