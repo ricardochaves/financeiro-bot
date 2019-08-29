@@ -62,7 +62,7 @@ class Lover(telepot.aio.helper.ChatHandler):
             await self._close()
             self.golas.execute_goals()
 
-        logger.warning(f'message: {result["message"]}')
+        logger.info(f'message: {result["message"]}')
         await self._send_msg(result["message"], keyboard=result["keyboard"])
 
     async def _close(self):
@@ -72,13 +72,13 @@ class Lover(telepot.aio.helper.ChatHandler):
         try:
             await self._cancel_last()
         except BaseException:
-            logger.warning("Não deu.")
+            logger.info("Não deu.")
 
         await self._send_msg("Seu registro foi efetuado com sucesso")
         try:
             self.close()
         except BaseException as e:
-            logger.warning(f"Erro:{e}")
+            logger.info(f"Erro:{e}")
 
     async def _send_msg(self, msg, keyboard=None):
         sent = await self.sender.sendMessage(msg, reply_markup=keyboard)
@@ -87,7 +87,7 @@ class Lover(telepot.aio.helper.ChatHandler):
 
     async def on_chat_message(self, msg):
         make_sure_mysql_usable()
-        logger.warning(msg)
+        logger.info(msg)
 
         if msg["text"] == "/calendar":
             await self._send_msg("Selecione o dia", keyboard=self.cal.get_calendar())
@@ -102,12 +102,12 @@ class Lover(telepot.aio.helper.ChatHandler):
         if not self.flow:
             self.golas = CalculateGoals(msg["from"]["id"])
             self.flow = CommandFlow(msg["text"])
-            logger.warning("Peguei o comando %s e já guardei" % msg["text"])
+            logger.info("Peguei o comando %s e já guardei" % msg["text"])
 
         await self._send_or_close(msg["text"])
 
     async def on_callback_query(self, msg):
-        logger.warning(msg)
+        logger.info(msg)
         query_id, from_id, query_data = glance(msg, flavor="callback_query")
 
         if query_data == "c_X":
@@ -141,6 +141,6 @@ bot = telepot.aio.DelegatorBot(
 
 loop = asyncio.get_event_loop()
 loop.create_task(MessageLoop(bot).run_forever())
-logger.warning("Listening ...")
+logger.info("Listening ...")
 
 loop.run_forever()

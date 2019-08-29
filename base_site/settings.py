@@ -165,11 +165,16 @@ LOGIN_URL = "/ricardo/login/"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}", "style": "{"},
+        "simple": {"format": "{levelname} {message}", "style": "{"},
+    },
     "handlers": {
         "file": {
             "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
             "class": "logging.FileHandler",
             "filename": S_LOGGING_FILE,
+            "formatter": "verbose",
         }
     },
     "loggers": {"": {"handlers": ["file"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True}},
