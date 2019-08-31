@@ -47,7 +47,7 @@ class Lover(telepot.aio.helper.ChatHandler):
         self.cal = Calendar()
         self._edit_msg_ident = None
         self._editor = None
-        self.golas = None
+        self.goals = None
 
     async def _cancel_last(self):
         if self._editor:
@@ -60,7 +60,8 @@ class Lover(telepot.aio.helper.ChatHandler):
         result = self.flow.next(msg)
         if result["done"]:
             await self._close()
-            self.golas.execute_goals()
+            self.goals.execute_goals()
+            return
 
         logger.info(f'message: {result["message"]}')
         await self._send_msg(result["message"], keyboard=result["keyboard"])
@@ -78,7 +79,7 @@ class Lover(telepot.aio.helper.ChatHandler):
         try:
             self.close()
         except BaseException as e:
-            logger.info(f"Erro:{e}")
+            logger.info(f"Error: {e}")
 
     async def _send_msg(self, msg, keyboard=None):
         sent = await self.sender.sendMessage(msg, reply_markup=keyboard)
@@ -96,7 +97,7 @@ class Lover(telepot.aio.helper.ChatHandler):
             return
 
         if not self.flow:
-            self.golas = CalculateGoals(msg["from"]["id"])
+            self.goals = CalculateGoals(msg["from"]["id"])
             self.flow = CommandFlow(msg["text"])
             logger.info("Peguei o comando %s e já guardei" % msg["text"])
 
