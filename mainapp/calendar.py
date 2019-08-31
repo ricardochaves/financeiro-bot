@@ -54,11 +54,9 @@ class Calendar:
         self.date_now = self.date_now + relativedelta(months=+1)
         return self.get_calendar()
 
-    def get_day_text(self, day):
-        if day == 0:
-            return " "
-
-        return day
+    @staticmethod
+    def get_day_text(day):
+        return " " if day == 0 else day
 
     def get_day_value(self, day):
         if day == 0:

@@ -6,14 +6,14 @@ from googleapiclient.discovery import build
 class Google:
     @staticmethod
     def get_service():
-        SCOPES = [
+        scopes = [
             "https://www.googleapis.com/auth/drive",
             "https://www.googleapis.com/auth/drive.file",
             "https://www.googleapis.com/auth/spreadsheets",
         ]
 
         credentials = service_account.Credentials.from_service_account_file(
-            settings.SERVICE_ACCOUNT_FILE, scopes=SCOPES
+            settings.SERVICE_ACCOUNT_FILE, scopes=scopes
         )
 
         return build("sheets", "v4", credentials=credentials, cache_discovery=False)
@@ -46,5 +46,4 @@ class Google:
         )
         response = request.execute()
 
-        # return "Linha edicionada com sucesso"
         return response
