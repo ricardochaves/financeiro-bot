@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import sys
 
 import telepot.aio
 import telepot.aio.helper
@@ -17,8 +16,6 @@ from telepot.aio.delegate import include_callback_query_chat_id
 from telepot.aio.delegate import pave_event_space
 from telepot.aio.delegate import per_chat_id
 from telepot.aio.loop import MessageLoop
-
-# logging.basicConfig(stream=sys.stdout)
 
 logger = logging.getLogger(__name__)
 

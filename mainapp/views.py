@@ -1,12 +1,7 @@
-import logging
-
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.db.models import Sum
-from django.db.models.functions import TruncDay
 from django.db.models.functions import TruncMonth
 from django.shortcuts import render
-
 from django_filters import rest_framework as f_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from mainapp.models import Category
@@ -93,17 +88,11 @@ def variableyear(request):
     for item in data:
         result = (
             Records.objects.values("category__name")
-            .filter(
-                payment_date_time__month=item["number"],
-                payment_date_time__year=year,
-                type_entry__id=1,
-            )
+            .filter(payment_date_time__month=item["number"], payment_date_time__year=year, type_entry__id=1)
             .annotate(sum_score=Sum("debit"))
         )
 
-        item["data"] = [
-            [x["category__name"], x["sum_score"] if x["sum_score"] else 0] for x in result
-        ]
+        item["data"] = [[x["category__name"], x["sum_score"] if x["sum_score"] else 0] for x in result]
 
     return render(request, "mainapp/variableyear.html", {"data": data, "year": year})
 
