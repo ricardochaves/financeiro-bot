@@ -37,31 +37,15 @@ class FullCommand(models.Model):
         (8, "Crédito Parcelado"),
     )
 
-    command = models.CharField(
-        max_length=70, verbose_name="Comando", default="", blank=False, null=False
-    )
+    command = models.CharField(max_length=70, verbose_name="Comando", default="", blank=False, null=False)
     entry_date = models.BooleanField(verbose_name="Data de Lançamento: Usa data do dia?")
-    payment_date = models.IntegerField(
-        choices=PAYMENT_DATE_OPTIONS, verbose_name="Data de Pagamento", default=1
-    )
-    debit = models.DecimalField(
-        max_digits=6, verbose_name="Débito", decimal_places=2, blank=True, null=True
-    )
-    credit = models.DecimalField(
-        max_digits=6, verbose_name="Crédito", decimal_places=2, blank=True, null=True
-    )
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name="Categoria", blank=True, null=True
-    )
-    name = models.ForeignKey(
-        FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Nome", null=True
-    )
-    description = models.CharField(
-        max_length=400, verbose_name="Descrição", default="", blank=True, null=True
-    )
-    type_entry = models.ForeignKey(
-        TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True
-    )
+    payment_date = models.IntegerField(choices=PAYMENT_DATE_OPTIONS, verbose_name="Data de Pagamento", default=1)
+    debit = models.DecimalField(max_digits=6, verbose_name="Débito", decimal_places=2, blank=True, null=True)
+    credit = models.DecimalField(max_digits=6, verbose_name="Crédito", decimal_places=2, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoria", blank=True, null=True)
+    name = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Nome", null=True)
+    description = models.CharField(max_length=400, verbose_name="Descrição", blank=True, null=True)
+    type_entry = models.ForeignKey(TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True)
 
     def __str__(self):
         return self.command
@@ -69,9 +53,7 @@ class FullCommand(models.Model):
 
 class Records(models.Model):
 
-    db_included_date_time = models.DateTimeField(
-        auto_now=True, null=False, verbose_name="Inclusão no Bando de Dados"
-    )
+    db_included_date_time = models.DateTimeField(auto_now=True, null=False, verbose_name="Inclusão no Bando de Dados")
     create_date_time = models.DateTimeField(
         default=datetime.now, null=False, blank=False, verbose_name="Data do Lançamento"
     )
@@ -79,26 +61,14 @@ class Records(models.Model):
         default=datetime.now, null=True, blank=False, verbose_name="Data da Execução"
     )
 
-    debit = models.DecimalField(
-        max_digits=6, verbose_name="Débito", decimal_places=2, blank=True, null=True
-    )
-    credit = models.DecimalField(
-        max_digits=6, verbose_name="Crédito", decimal_places=2, blank=True, null=True
-    )
+    debit = models.DecimalField(max_digits=6, verbose_name="Débito", decimal_places=2, blank=True, null=True)
+    credit = models.DecimalField(max_digits=6, verbose_name="Crédito", decimal_places=2, blank=True, null=True)
 
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name="Categoria", blank=True, null=True
-    )
-    name = models.ForeignKey(
-        FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Nome", null=True
-    )
-    type_entry = models.ForeignKey(
-        TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoria", blank=True, null=True)
+    name = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Nome", null=True)
+    type_entry = models.ForeignKey(TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True)
 
-    description = models.CharField(
-        max_length=400, verbose_name="Descrição", default="", blank=True, null=True
-    )
+    description = models.CharField(max_length=400, verbose_name="Descrição", default="", blank=True, null=True)
 
     class Meta:
         indexes = [
