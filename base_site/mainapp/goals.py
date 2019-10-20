@@ -3,7 +3,7 @@ import datetime
 import logging
 
 import telepot
-from base_site.mainapp import Records
+from base_site.mainapp.models import Records
 from django.conf import settings
 from django.db.models import Func
 from django.db.models import IntegerField
