@@ -101,7 +101,7 @@ class Register:
 
         payments = self._calc_payments()
         for p in payments:
-            self._send_google(p["date"], p["credit"], p["debit"], p["description"])
+            # self._send_google(p["date"], p["credit"], p["debit"], p["description"])
             self._save_on_database(p["date"], p["credit"], p["debit"], p["description"])
 
     def _send_google(self, date, val_credit, val_debt, description):
