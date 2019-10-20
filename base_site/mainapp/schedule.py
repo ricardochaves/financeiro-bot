@@ -46,6 +46,6 @@ def execute_command(str_dict):
 
     loop = asyncio.get_event_loop()
 
-    bot = telepot.aio.Bot(settings.TELEGRAN_TOKEN)
+    bot = telepot.aio.Bot(settings.TELEGRAM_TOKEN)
 
     loop.run_until_complete(bot.sendMessage(data["message"]["user"], data["message"]["text"]))
