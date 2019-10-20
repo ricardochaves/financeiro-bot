@@ -5,23 +5,28 @@ verify_ssl = true
 
 [dev-packages]
 coverage = "*"
-coveralls = "*"
 tox = "*"
+pytest = "*"
+pytest-mock = "*"
 pytest-cov = "*"
+pytest-env = "*"
 pytest-django = "*"
-djangorestframework-stubs = "*"
 
 [packages]
-django = ">=2.2.4"
-mysqlclient = "*"
-honcho = "*"
+django = "==2.2.6"
+django-health-check = "==3.11.0"
+python-json-logger = "==0.1.11"
+request-id-django-log = "==0.1.1"
+psycopg2-binary = "==2.8.3"
+gevent = "==1.4.0"
+
 gunicorn = "*"
-whitenoise = "*"
+whitenoise = ">=4.1.3"
 telepot = "*"
 google-api-python-client = "*"
 python-dateutil = "*"
 oauth2client = "*"
-djangorestframework = "*"
+djangorestframework = ">=3.10.3"
 markdown = "*"
 django-filter = "*"
 djangorestframework-jwt = "*"
@@ -32,6 +37,7 @@ django-q = "*"
 arrow = "*"
 isoweek = "*"
 django-import-export = "*"
+python-telegram-bot = "*"
 
 [requires]
 python_version = "3.6"

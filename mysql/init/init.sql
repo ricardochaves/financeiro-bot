@@ -1,1 +1,0 @@
-CREATE DATABASE base_site CHARACTER SET utf8 COLLATE utf8_bin;

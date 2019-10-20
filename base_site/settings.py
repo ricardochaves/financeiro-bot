@@ -9,43 +9,36 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
 import datetime
 import os
+from logging import Formatter
+from typing import Optional
 
-from base_site.database import S_ALLOWED_HOSTS
-from base_site.database import S_DATABASES
-from base_site.database import S_DEBUG
-from base_site.database import S_LOGGING_FILE
-from base_site.database import S_SECRET_KEY
-from base_site.database import S_SERVICE_ACCOUNT_FILE
-from base_site.database import S_TELEGRAM_TOKEN
+import sentry_sdk
+from pythonjsonlogger.jsonlogger import JsonFormatter
+from sentry_sdk.integrations.django import DjangoIntegration
 
-DATABASES = S_DATABASES
-DEBUG = S_DEBUG
-SERVICE_ACCOUNT_FILE = S_SERVICE_ACCOUNT_FILE
-TELEGRAM_TOKEN = S_TELEGRAM_TOKEN
-ALLOWED_HOSTS = S_ALLOWED_HOSTS
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG: bool = os.getenv("DEBUG") == "True"
+
+DJANGO_ALLOWED_HOSTS: Optional[str] = os.getenv("ALLOWED_HOSTS")
+if DJANGO_ALLOWED_HOSTS:
+    ALLOWED_HOSTS = DJANGO_ALLOWED_HOSTS.split(",")
+else:
+    ALLOWED_HOSTS = ["*"]
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = S_SECRET_KEY
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True  # on database.py
-
-
 # Application definition
 
 INSTALLED_APPS = [
-    "mainapp",
+    "base_site.mainapp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -95,7 +88,16 @@ WSGI_APPLICATION = "base_site.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+DATABASES = {
+    "default": {
+        "ENGINE": os.getenv("DB_ENGINE"),
+        "NAME": os.getenv("DB_DATABASE"),
+        "USER": os.environ.get("DB_USER"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -165,17 +167,30 @@ LOGIN_URL = "/ricardo/login/"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "filters": {"request_id": {"()": "request_id_django_log.filters.RequestIDFilter"}},
     "formatters": {
-        "verbose": {"format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}", "style": "{"},
-        "simple": {"format": "{levelname} {message}", "style": "{"},
-    },
-    "handlers": {
-        "file": {
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
-            "class": "logging.FileHandler",
-            "filename": S_LOGGING_FILE,
-            "formatter": "verbose",
+        "standard": {
+            "()": JsonFormatter,
+            "format": "%(levelname)-8s [%(asctime)s] [%(request_id)s] %(name)s: %(message)s",
         }
     },
-    "loggers": {"": {"handlers": ["file"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True}},
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "filters": ["request_id"],
+            "formatter": "standard",
+        }
+    },
+    "loggers": {
+        "": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
+        "django.request": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
+        "root": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
+    },
 }
+
+SERVICE_ACCOUNT_FILE = os.getenv("SERVICE_ACCOUNT_FILE")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+
+
+sentry_sdk.init(dsn=os.getenv("SENTRY_DNS"), integrations=[DjangoIntegration()])
