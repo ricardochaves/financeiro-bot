@@ -1,5 +1,7 @@
 # Bot Financeiro
 
+[![Build status](https://dev.azure.com/ricardobchaves/Ricardo/_apis/build/status/financeiro-bot/financeiro-bot)](https://dev.azure.com/ricardobchaves/Ricardo/_build/latest?definitionId=11) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c6cded8b4b124da491bf6fbc0fbc88e2)](https://www.codacy.com/manual/ricardochaves/financeiro-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardochaves/financeiro-bot&amp;utm_campaign=Badge_Coverage) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c6cded8b4b124da491bf6fbc0fbc88e2)](https://www.codacy.com/manual/ricardochaves/financeiro-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardochaves/financeiro-bot&amp;utm_campaign=Badge_Grade)
+
 ## Eu fiz isso porque
 
 A muitos anos eu faço meu controle financeiro, para tal, eu utilizei e busquei muitas ferramentas para me ajudar, antes mesmo de existir os smartfones, quem aí já usou o [Microsoft Money](https://pt.wikipedia.org/wiki/Microsoft_Money)?, então, eu já.
