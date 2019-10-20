@@ -44,6 +44,7 @@ urlpatterns = (
         path("", views.index, name="index"),
         path("variableyear", views.variableyear, name="variableyear"),
         path("bycategory", views.bycategory, name="bycategory"),
+        path("healthcheck/", include("health_check.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

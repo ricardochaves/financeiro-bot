@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     "django_filters",
     "django_q",
     "import_export",
+    "health_check",
+    "health_check.db",
+    "health_check.storage",
+    "request_id_django_log",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "request_id_django_log.middleware.RequestIdDjangoLog",
 ]
 
 ROOT_URLCONF = "base_site.urls"
@@ -187,6 +192,12 @@ LOGGING = {
         "django.request": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
         "root": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
     },
+}
+
+REQUEST_ID_CONFIG = {
+    "REQUEST_ID_HEADER": "HTTP_X_REQUEST_ID",
+    "GENERATE_REQUEST_ID_IF_NOT_FOUND": True,
+    "RESPONSE_HEADER_REQUEST_ID": "HTTP_X_REQUEST_ID",
 }
 
 SERVICE_ACCOUNT_FILE = os.getenv("SERVICE_ACCOUNT_FILE")
