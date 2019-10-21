@@ -88,7 +88,7 @@ class Lover(telepot.aio.helper.ChatHandler):
         logger.info(msg)
 
         if msg["text"] == "/c":
-            commands = FullCommand.objects.all()
+            commands = FullCommand.objects.order_by("command").all()
             msg = "\n".join([c.command for c in commands])
             await self._send_msg(msg)
             return

@@ -19,6 +19,7 @@ class FamilyMember(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=70, verbose_name="Nome", default="", blank=False, null=False)
+    enable = models.BooleanField(default=True, verbose_name="Enable?")
 
     def __str__(self):
         return self.name

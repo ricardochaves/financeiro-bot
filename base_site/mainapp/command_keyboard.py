@@ -17,17 +17,20 @@ class CommandKeyBoard:
 
     @staticmethod
     def get_category():
-        categorys = Category.objects.all()
+        categories = Category.objects.filter(enable=True).order_by("name").all()
         k = []
         in_line = []
         count = 0
-        for c in categorys:
+        for c in categories:
             count += 1
             k.append(InlineKeyboardButton(text=c.name, callback_data=c.name))
             if count > 2:
                 in_line.append(k)
                 k = []
                 count = 0
+
+        if k:
+            in_line.append(k)
 
         return InlineKeyboardMarkup(inline_keyboard=in_line)
 
