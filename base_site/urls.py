@@ -16,34 +16,15 @@ Including another URLconf
 
 from base_site.mainapp import views
 from django.conf import settings
-from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
-from rest_framework import routers
-from rest_framework.schemas import get_schema_view
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_jwt.views import refresh_jwt_token
-from rest_framework_swagger.views import get_swagger_view
-
-router = routers.DefaultRouter()
-router.register(r"records", views.RecordsViewSet)
-schema_view = get_schema_view(title="Records API")
-swagger_view = get_swagger_view(title="Records API")
 
 urlpatterns = (
     [
-        url(r"api/v1/", include(router.urls)),
-        path("api/v1/schema/", schema_view),
-        path("api/v1/swagger/", swagger_view),
         path("ricardo/", admin.site.urls),
-        url(r"^api/v1/api-auth/", include("rest_framework.urls")),
-        path(r"api/v1/api-token-auth/", obtain_jwt_token),
-        path(r"api/v1/api-token-refresh/", refresh_jwt_token),
         path("", views.index, name="index"),
-        path("variableyear", views.variableyear, name="variableyear"),
-        path("bycategory", views.bycategory, name="bycategory"),
         path("healthcheck/", include("health_check.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
