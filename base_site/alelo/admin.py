@@ -4,7 +4,8 @@ from django.contrib import admin
 
 
 class AleloItemAdmin(admin.ModelAdmin):
-    list_display = ("item_date", "description", "icon", "item_type", "value")
+    list_display = ("item_date", "is_processed", "description", "icon", "item_type", "value")
+    list_filter = ("is_processed", "item_date")
 
 
 class AleloItemSetupAdmin(admin.ModelAdmin):
