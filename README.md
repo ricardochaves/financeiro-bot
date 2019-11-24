@@ -1,6 +1,6 @@
 # Bot Financeiro
 
-[![Build status](https://dev.azure.com/ricardobchaves/Ricardo/_apis/build/status/financeiro-bot/financeiro-bot)](https://dev.azure.com/ricardobchaves/Ricardo/_build/latest?definitionId=11) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c6cded8b4b124da491bf6fbc0fbc88e2)](https://www.codacy.com/manual/ricardochaves/financeiro-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardochaves/financeiro-bot&amp;utm_campaign=Badge_Coverage) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c6cded8b4b124da491bf6fbc0fbc88e2)](https://www.codacy.com/manual/ricardochaves/financeiro-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardochaves/financeiro-bot&amp;utm_campaign=Badge_Grade)
+[![Build status](https://dev.azure.com/ricardobchaves/Ricardo/_apis/build/status/financeiro-bot/financeiro-bot)](https://dev.azure.com/ricardobchaves/Ricardo/_build/latest?definitionId=11) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c6cded8b4b124da491bf6fbc0fbc88e2)](https://www.codacy.com/manual/ricardochaves/financeiro-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardochaves/financeiro-bot&amp;utm_campaign=Badge_Coverage) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c6cded8b4b124da491bf6fbc0fbc88e2)](https://www.codacy.com/manual/ricardochaves/financeiro-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardochaves/financeiro-bot&amp;utm_campaign=Badge_Grade) [![Maintainability](https://api.codeclimate.com/v1/badges/bd8854d2bc342c902a99/maintainability)](https://codeclimate.com/github/ricardochaves/financeiro-bot/maintainability) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/ricardochaves/financeiro-bot/blob/master/LICENSE)
 
 ## Eu fiz isso porque
 
@@ -37,6 +37,8 @@ Data Lanc - Data Fatura - Débito - Crédito - Total - Categoria - Nome - Descri
 
 Sendo que Total é uma coluna de formula que o bot deixa em branco.
 Isso é feito via API do Google e pelo pacote [google-api-python-client](https://github.com/googleapis/google-api-python-client)
+
+Atualmente o código para alimentar o google está comentádo. Estou fazendo o BI usando o [Google Data Studio](https://datastudio.google.com/) conectado direto no banco de dados
 
 ## Comandos para o bot
 
@@ -86,7 +88,7 @@ A key `message` define o que e para quem ele vai enviar a notificação. O `user
 
 ## Relatórios
 
-O indicado aqui é fazer a exportação de dados e utilizar o [PowerBI](https://powerbi.microsoft.com) para os relatórios.
+Atualmente utilizando o [Google Data Studio](https://datastudio.google.com/) conectado direto no banco de dados
 
 ## Meta
 
@@ -96,26 +98,11 @@ O bot possuí uma meta de 770 reais por semana de custo variável, ele vai infor
 
 O projeto loga os erros no [Sentry](https://sentry.io/) e para isso você vai precisar configurar um projeto seu. No site deles você acham mais detalhes.
 
-## .env File
+## Alelo API
 
-Você vai pecisar de um arquivo `.env` com as seguinte variáveis:
+Existe uma app chamada Alelo que tem um comando para alimentar o seu banco de dados com os último 4 meses de lançamento.
+Você pode agendar a task dessa app que vai pegar todos os lançamentos não processados e criar os devidos lançamento no seu controle.
 
-```
-GUNICORN_WORKS=1
-PORT=5005
-DEBUG=True
+## Nubank API
 
-DB_DATA_BASE=base_site
-DB_USER=root
-DB_PASSWORD=example
-DB_HOST=db
-DB_PORT=3306
-
-SERVICE_ACCOUNT_FILE=bot-financeiro-1534199345603-f2129fd5303c.json
-
-TELEGRAN_TOKEN=695792236:ABBFhwwaILseFKKb7nj1QqFYhtmGB8h07WM
-
-SENTRY_DNS=https://b657f6061c34533ecas4n6n64kf9832cde@sentry.io/1375930
-```
-
-As três últimas variáveis eu coloquei valore bem perto dos reais para facilitar entender.
+TODO

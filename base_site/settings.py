@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     "health_check.db",
     "health_check.storage",
     "request_id_django_log",
+    "base_site.nubank",
+    "base_site.alelo",
 ]
 
 MIDDLEWARE = [
@@ -205,3 +207,11 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 
 sentry_sdk.init(dsn=os.getenv("SENTRY_DNS"), integrations=[DjangoIntegration()])
+
+
+NUBANK_CPF = os.getenv("NUBANK_CPF")
+NUBANK_PASSWORD = os.getenv("NUBANK_PASSWORD")
+
+ALELO_CPF = os.getenv("ALELO_CPF")
+ALELO_PASSWORD = os.getenv("ALELO_PASSWORD")
+ALELO_CARD_LAST_NUMBER = os.getenv("ALELO_CARD_LAST_NUMBER")

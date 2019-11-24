@@ -11,6 +11,9 @@ engines:
   csslint:
     enabled: true
 
+  duplication:
+    enabled: false
+
 exclude_patterns:
   - "**/test/"
   - "**/.venv/"

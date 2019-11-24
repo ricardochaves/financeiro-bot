@@ -6,6 +6,5 @@ python manage.py loaddata admin.json
 python manage.py seeddb
 # python manage.py collectstatic --noinput
 
-gunicorn -w 2 -b 0.0.0.0:5005 base_site.wsgi --log-level=debug
-
-#honcho start
+#gunicorn -w 2 -b 0.0.0.0:5005 base_site.wsgi --log-level=debug
+python manage.py runserver 0.0.0.0:5005
