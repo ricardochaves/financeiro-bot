@@ -7,9 +7,6 @@ class AleloItemAdmin(admin.ModelAdmin):
     list_display = ("item_date", "description", "icon", "item_type", "value")
 
 
-admin.site.register(AleloItem, AleloItemAdmin)
-
-
 class AleloItemSetupAdmin(admin.ModelAdmin):
     list_display = ("description", "category", "name", "type_entry", "is_credit")
 
