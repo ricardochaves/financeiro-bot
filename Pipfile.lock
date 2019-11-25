@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d78ac17ea74e55725bb13d417a7dbf68a170da338f2928b480e498e9d9d26285"
+            "sha256": "4adecf6a0737eceacae848809f988ecac7791e97b739a2531dc23c042bc3695c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -560,10 +560,11 @@
         },
         "python-alelo": {
             "hashes": [
-                "sha256:e55ed335c4194349bbc383993d9294a4cadb920b9a3bd56df4e87e013e02bebf"
+                "sha256:a85adb1a5fb1698ebde23b31125d1c206fd4ea403fb4d11a056a5095a8d0ea67",
+                "sha256:f12b99931d1f5ebf59be0bea63dbf2f3aec6c21c482987158d8f5e6844591343"
             ],
             "index": "pypi",
-            "version": "==0.0.1"
+            "version": "==0.0.2"
         },
         "python-dateutil": {
             "hashes": [
