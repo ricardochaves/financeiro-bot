@@ -13,14 +13,14 @@ pytest-env = "*"
 pytest-django = "*"
 
 [packages]
-django = "==2.2.6"
-django-health-check = "==3.11.0"
+django = "==2.2.7"
+django-health-check = "==3.11.1"
 python-json-logger = "==0.1.11"
 request-id-django-log = "==0.1.1"
-psycopg2-binary = "==2.8.3"
+psycopg2-binary = "==2.8.4"
 gevent = "==1.4.0"
 
-python-alelo = "==0.0.1"
+python-alelo = "==0.0.2"
 pynubank = "==1.0.1"
 
 gunicorn = "*"
