@@ -4,18 +4,15 @@ from django.contrib import admin
 
 
 class NubankCardsAdmin(admin.ModelAdmin):
-    pass
-    # list_display = ("item_date", "is_processed", "description", "icon", "item_type", "value")
-    # list_filter = ("is_processed", "item_date")
+    list_display = ("command_1", "command_2", "cpf", "last_login")
 
 
 admin.site.register(NubankCards, NubankCardsAdmin)
 
 
 class NubankStatementAdmin(admin.ModelAdmin):
-    pass
-    # list_display = ("item_date", "is_processed", "description", "icon", "item_type", "value")
-    # list_filter = ("is_processed", "item_date")
+    list_display = ("created_at", "is_processed", "amount", "category", "item_time", "title")
+    list_filter = ("is_processed", "created_at", "item_time")
 
 
 admin.site.register(NubankStatement, NubankStatementAdmin)
