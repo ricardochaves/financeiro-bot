@@ -11,7 +11,7 @@ admin.site.register(NubankCards, NubankCardsAdmin)
 
 
 class NubankStatementAdmin(admin.ModelAdmin):
-    list_display = ("created_at", "is_processed", "amount", "category", "item_time", "title")
+    list_display = ("created_at", "is_processed", "amount", "description", "item_time", "title")
     list_filter = ("is_processed", "created_at", "item_time")
 
 
