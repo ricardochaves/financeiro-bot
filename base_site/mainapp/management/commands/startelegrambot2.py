@@ -1,5 +1,9 @@
 import asyncio
 import logging
+import os
+
+from pynubank import Nubank
+from qrcode.image.pil import PilImage
 
 import telepot.aio
 import telepot.aio.helper
@@ -8,6 +12,8 @@ from base_site.mainapp.goals import CalculateGoals
 from base_site.mainapp.manageconnections import make_sure_mysql_usable
 from base_site.mainapp.models import FullCommand
 from base_site.mainapp.telegram_bot.calendar import Calendar
+from base_site.nubank.models import NubankCards
+from base_site.nubank.nubank_bot import NubankBot
 from django.conf import settings
 from telepot import glance
 from telepot import message_identifier
@@ -45,6 +51,7 @@ class Lover(telepot.aio.helper.ChatHandler):
         self._edit_msg_ident = None
         self._editor = None
         self.goals = None
+        self.nu = NubankBot()
 
     async def _cancel_last(self):
         if self._editor:
@@ -92,6 +99,24 @@ class Lover(telepot.aio.helper.ChatHandler):
             msg = "\n".join([c.command for c in commands])
             await self._send_msg(msg)
             return
+
+        n = NubankCards.objects.filter(command_1=msg["text"]).filter()
+        if n:
+            with open(self.nu.get_qr_code(), "rb") as f:
+                await self.sender.sendPhoto(f)
+            return
+
+        cm = msg["text"].split(" ")
+        if len(cm) == 2:
+            n = NubankCards.objects.filter(command_2=cm[0]).first()
+            if n:
+                await bot.deleteMessage(telepot.message_identifier(msg))
+                await self._send_msg("Iniciando o processamento")
+
+                self.nu.set_nubank_command(n)
+                self.nu.execute(cm[1])
+
+                return
 
         if not self.flow:
             self.goals = CalculateGoals(msg["from"]["id"])

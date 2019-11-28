@@ -19,10 +19,8 @@ python-json-logger = "==0.1.11"
 request-id-django-log = "==0.1.1"
 psycopg2-binary = "==2.8.4"
 gevent = "==1.4.0"
-
 python-alelo = "==0.0.2"
 pynubank = "==1.0.1"
-
 gunicorn = "*"
 whitenoise = ">=4.1.3"
 telepot = "*"
@@ -41,6 +39,7 @@ arrow = "*"
 isoweek = "*"
 django-import-export = "*"
 python-telegram-bot = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"
