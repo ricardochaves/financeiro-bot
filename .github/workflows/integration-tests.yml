@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run Integration Tests
-      run: docker-compose up -d --exit-code-from integration-tests integration-tests
+      run: docker-compose up --exit-code-from integration-tests integration-tests
