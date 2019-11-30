@@ -27,7 +27,7 @@ class NubankTaskTestCase(TestCase):
 
     def test_should_create_one_record_whit_same_month(self):
 
-        NubankStatement.objects.create(amount=10000, description="slug-1", item_time=datetime(2019, 1, 7), details={})
+        NubankStatement.objects.create(amount=100, description="slug-1", item_time=datetime(2019, 1, 7), details={})
 
         process_nubank_statements()
 
@@ -50,7 +50,7 @@ class NubankTaskTestCase(TestCase):
 
     def test_should_create_one_record_whit_next_month(self):
 
-        NubankStatement.objects.create(amount=10000, description="slug-1", item_time=datetime(2019, 1, 9), details={})
+        NubankStatement.objects.create(amount=100, description="slug-1", item_time=datetime(2019, 1, 9), details={})
 
         process_nubank_statements()
 
@@ -74,7 +74,7 @@ class NubankTaskTestCase(TestCase):
     def test_should_create_two_records_whit_first_in_same_month(self):
 
         NubankStatement.objects.create(
-            amount=10000,
+            amount=100,
             description="slug-1",
             item_time=datetime(2019, 1, 7),
             details={"charges": {"amount": 5000, "count": 2}},
@@ -117,7 +117,7 @@ class NubankTaskTestCase(TestCase):
     def test_should_create_two_records_whit_first_in_next_month(self):
 
         NubankStatement.objects.create(
-            amount=10000,
+            amount=100,
             description="slug-1",
             item_time=datetime(2019, 1, 9),
             details={"charges": {"amount": 5000, "count": 2}},

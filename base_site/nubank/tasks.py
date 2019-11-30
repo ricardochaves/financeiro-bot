@@ -39,7 +39,7 @@ def _update_statement(s: NubankStatement) -> None:
 
 
 def get_setup(description: str) -> Optional[NubankItemSetup]:
-    slug_description = slugify(description)
+    slug_description = slugify(description, replacements=[["*", ""]])
 
     return NubankItemSetup.objects.filter(description_slug=slug_description).first()
 
@@ -57,7 +57,7 @@ def get_values_and_dates(s: NubankStatement) -> List:
             registers.append({"date": next_date, "value": Decimal(amount) / 100})
 
     else:
-        registers.append({"date": first_date, "value": s.amount / 100})
+        registers.append({"date": first_date, "value": s.amount})
 
     return registers
 
