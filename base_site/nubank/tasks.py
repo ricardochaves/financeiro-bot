@@ -57,7 +57,7 @@ def get_values_and_dates(s: NubankStatement) -> List:
             registers.append({"date": next_date, "value": Decimal(amount) / 100})
 
     else:
-        registers.append({"date": first_date, "value": s.amount / 100})
+        registers.append({"date": first_date, "value": s.amount})
 
     return registers
 
