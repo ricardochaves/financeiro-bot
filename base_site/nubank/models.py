@@ -23,6 +23,19 @@ class NubankStatement(models.Model):
     is_processed = models.BooleanField(default=False)
 
 
+class NubankBankStatement(models.Model):
+
+    created_at = models.DateTimeField(auto_now=True)
+    nubank_id = models.CharField(blank=True, null=True, max_length=40, db_index=True, verbose_name="id")
+    title = models.CharField(blank=True, null=True, max_length=200)
+    detail = JSONField(blank=True, null=True)
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
+    post_date = models.DateTimeField()
+    _type = models.CharField(max_length=200)
+
+    is_processed = models.BooleanField(default=False)
+
+
 class NubankSession(models.Model):
 
     created_at = models.DateTimeField(auto_now=True)

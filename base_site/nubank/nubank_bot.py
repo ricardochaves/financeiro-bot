@@ -5,6 +5,7 @@ from decimal import Decimal
 from pynubank import Nubank
 from qrcode.image.pil import PilImage
 
+from base_site.nubank.models import NubankBankStatement
 from base_site.nubank.models import NubankCards
 from base_site.nubank.models import NubankSession
 from base_site.nubank.models import NubankStatement
@@ -81,9 +82,23 @@ class NubankBot:
 
             NubankStatement.objects.get_or_create(nubank_id=n["id"], defaults=defaults)
 
+        self._execute_bank_statements()
+
         return
 
+    def _execute_bank_statements(self):
+        account_statements = self.nu.get_account_statements()
 
-def mock_item():
-    with open("card_statements.json") as json_file:
-        return json.load(json_file)
+        for a in account_statements:
+            if a["__typename"] == "TransferOutReversalEvent":
+                continue
+
+            defaults = {
+                "nubank_id": a["id"],
+                "title": a["title"],
+                "detail": a["detail"],
+                "amount": Decimal(a["amount"]),
+                "post_date": a["postDate"],
+                "_type": a["__typename"],
+            }
+            NubankBankStatement.objects.get_or_create(nubank_id=a["id"], defaults=defaults)

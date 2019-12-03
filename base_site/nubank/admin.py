@@ -1,3 +1,4 @@
+from base_site.nubank.models import NubankBankStatement
 from base_site.nubank.models import NubankCards
 from base_site.nubank.models import NubankItemSetup
 from base_site.nubank.models import NubankStatement
@@ -19,6 +20,13 @@ class NubankItemSetupAdmin(admin.ModelAdmin):
     prepopulated_fields = {"description_slug": ("description",)}
 
 
+class NubankBankStatementAdmin(admin.ModelAdmin):
+    list_display = ("created_at", "is_processed", "title", "amount", "post_date")
+    list_filter = ("is_processed", "created_at", "post_date")
+    ordering = ["-created_at"]
+
+
 admin.site.register(NubankStatement, NubankStatementAdmin)
 admin.site.register(NubankItemSetup, NubankItemSetupAdmin)
 admin.site.register(NubankCards, NubankCardsAdmin)
+admin.site.register(NubankBankStatement, NubankBankStatementAdmin)

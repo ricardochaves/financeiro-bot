@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('nubank', '0003_nubankitemsetup'),
-    ]
+    dependencies = [("nubank", "0003_nubankitemsetup")]
 
     operations = [
         migrations.AlterField(
-            model_name='nubankstatement',
-            name='amount_without_iof',
+            model_name="nubankstatement",
+            name="amount_without_iof",
             field=models.DecimalField(blank=True, decimal_places=2, max_digits=9, null=True),
-        ),
+        )
     ]
