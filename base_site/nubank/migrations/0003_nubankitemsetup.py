@@ -6,22 +6,46 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('mainapp', '0002_category_enable'),
-        ('nubank', '0002_auto_20191127_2230'),
-    ]
+    dependencies = [("mainapp", "0002_category_enable"), ("nubank", "0002_auto_20191127_2230")]
 
     operations = [
         migrations.CreateModel(
-            name='NubankItemSetup',
+            name="NubankItemSetup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=200)),
-                ('description_slug', models.CharField(max_length=200)),
-                ('is_credit', models.BooleanField(default=False)),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='mainapp.Category', verbose_name='Categoria')),
-                ('name', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='mainapp.FamilyMember', verbose_name='Nome')),
-                ('type_entry', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='mainapp.TypeEntry', verbose_name='Tipo')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("description", models.CharField(max_length=200)),
+                ("description_slug", models.CharField(max_length=200)),
+                ("is_credit", models.BooleanField(default=False)),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mainapp.Category",
+                        verbose_name="Categoria",
+                    ),
+                ),
+                (
+                    "name",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mainapp.FamilyMember",
+                        verbose_name="Nome",
+                    ),
+                ),
+                (
+                    "type_entry",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mainapp.TypeEntry",
+                        verbose_name="Tipo",
+                    ),
+                ),
             ],
-        ),
+        )
     ]

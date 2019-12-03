@@ -8,32 +8,57 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('mainapp', '0002_category_enable'),
-    ]
+    dependencies = [("mainapp", "0002_category_enable")]
 
     operations = [
         migrations.CreateModel(
-            name='AleloItem',
+            name="AleloItem",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('item_date', models.DateField()),
-                ('value', models.DecimalField(decimal_places=2, max_digits=9)),
-                ('item_type', models.CharField(max_length=20)),
-                ('icon', models.CharField(max_length=100)),
-                ('description', models.CharField(max_length=200)),
-                ('is_processed', models.BooleanField(default=False)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("item_date", models.DateField()),
+                ("value", models.DecimalField(decimal_places=2, max_digits=9)),
+                ("item_type", models.CharField(max_length=20)),
+                ("icon", models.CharField(max_length=100)),
+                ("description", models.CharField(max_length=200)),
+                ("is_processed", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='AleloItemSetup',
+            name="AleloItemSetup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=200)),
-                ('is_credit', models.BooleanField(default=False)),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='mainapp.Category', verbose_name='Categoria')),
-                ('name', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='mainapp.FamilyMember', verbose_name='Nome')),
-                ('type_entry', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='mainapp.TypeEntry', verbose_name='Tipo')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("description", models.CharField(max_length=200)),
+                ("is_credit", models.BooleanField(default=False)),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mainapp.Category",
+                        verbose_name="Categoria",
+                    ),
+                ),
+                (
+                    "name",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mainapp.FamilyMember",
+                        verbose_name="Nome",
+                    ),
+                ),
+                (
+                    "type_entry",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mainapp.TypeEntry",
+                        verbose_name="Tipo",
+                    ),
+                ),
             ],
         ),
     ]
