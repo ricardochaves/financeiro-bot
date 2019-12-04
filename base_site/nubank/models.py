@@ -35,6 +35,12 @@ class NubankBankStatement(models.Model):
 
     is_processed = models.BooleanField(default=False)
 
+    def is_credit(self):
+        return self._type in ["TransferInEvent"]
+
+    def is_debit(self):
+        return self._type in ["TransferOutEvent", "BarcodePaymentEvent"]
+
 
 class NubankSession(models.Model):
 
