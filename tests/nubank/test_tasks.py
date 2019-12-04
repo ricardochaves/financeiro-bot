@@ -1,13 +1,17 @@
+import uuid
 from datetime import datetime
 
 from base_site.mainapp.models import Category
 from base_site.mainapp.models import FamilyMember
 from base_site.mainapp.models import Records
 from base_site.mainapp.models import TypeEntry
+from base_site.nubank.models import NubankBankStatement
 from base_site.nubank.models import NubankItemSetup
 from base_site.nubank.models import NubankStatement
+from base_site.nubank.tasks import process_nubank_bank_statements
 from base_site.nubank.tasks import process_nubank_statements
 from django.test import TestCase
+from django.utils import timezone
 
 
 class NubankTaskTestCase(TestCase):
@@ -156,3 +160,59 @@ class NubankTaskTestCase(TestCase):
         self.assertEqual(record.payment_date_time.day, 15)
         self.assertEqual(record.payment_date_time.month, 3)
         self.assertEqual(record.payment_date_time.year, 2019)
+
+    def test_should_create_credit_record_from_bank(self):
+
+        NubankBankStatement.objects.create(
+            created_at=timezone.now(),
+            nubank_id=uuid.uuid4(),
+            title="slug-1",
+            detail="detail 1",
+            amount=100,
+            post_date=timezone.now().date(),
+            _type="TransferInEvent",
+        )
+
+        process_nubank_bank_statements()
+        process_nubank_bank_statements()
+
+        self.assertEqual(Records.objects.count(), 1)
+
+        i = Records.objects.first()
+        self.assertEqual(i.credit, 100)
+
+    def test_should_create_debit_record_from_bank(self):
+
+        NubankBankStatement.objects.create(
+            created_at=timezone.now(),
+            nubank_id=uuid.uuid4(),
+            title="slug-1",
+            detail="detail 1",
+            amount=100,
+            post_date=timezone.now().date(),
+            _type="TransferOutEvent",
+        )
+
+        process_nubank_bank_statements()
+        process_nubank_bank_statements()
+
+        self.assertEqual(Records.objects.count(), 1)
+
+        i = Records.objects.first()
+        self.assertEqual(i.debit, 100)
+
+    def test_should_not_create_record_from_bank(self):
+
+        NubankBankStatement.objects.create(
+            created_at=timezone.now(),
+            nubank_id=uuid.uuid4(),
+            title="slug-1",
+            detail="detail 1",
+            amount=100,
+            post_date=timezone.now().date(),
+            _type="NOT_FOUND",
+        )
+
+        process_nubank_bank_statements()
+
+        self.assertEqual(Records.objects.count(), 0)
