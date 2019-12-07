@@ -53,7 +53,7 @@ class NubankBot:
         self.n_card.last_login = timezone.now()
         self.n_card.save()
 
-    def execute(self, pwd: str):
+    def execute(self, pwd: str, card: NubankCards):
 
         if not self.logged:
             self._login(pwd)
@@ -82,11 +82,11 @@ class NubankBot:
 
             NubankStatement.objects.get_or_create(nubank_id=n["id"], defaults=defaults)
 
-        self._execute_bank_statements()
+        self._execute_bank_statements(card)
 
         return
 
-    def _execute_bank_statements(self):
+    def _execute_bank_statements(self, card: NubankCards):
         account_statements = self.nu.get_account_statements()
 
         for a in account_statements:
