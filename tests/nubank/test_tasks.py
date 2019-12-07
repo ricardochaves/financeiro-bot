@@ -8,6 +8,7 @@ from base_site.mainapp.models import TypeEntry
 from base_site.nubank.models import NubankBankStatement
 from base_site.nubank.models import NubankItemSetup
 from base_site.nubank.models import NubankStatement
+from base_site.nubank.tasks import get_setup
 from base_site.nubank.tasks import process_nubank_bank_statements
 from base_site.nubank.tasks import process_nubank_statements
 from django.test import TestCase
@@ -21,12 +22,17 @@ class NubankTaskTestCase(TestCase):
         self.name = FamilyMember.objects.create(name="test")
         self.type_entry = TypeEntry.objects.create(name="test")
 
-        NubankItemSetup.objects.create(
-            description="slug-1",
-            description_slug="slug-1",
+        self.setup = self._crete_setup()
+
+    def _crete_setup(self, desc: str = "slug-1", check_value=None, check_value_operator=None) -> NubankItemSetup:
+        return NubankItemSetup.objects.create(
+            description=desc,
+            description_slug=desc,
             category=self.category,
             name=self.name,
             type_entry=self.type_entry,
+            check_value=check_value,
+            check_value_operator=check_value_operator,
         )
 
     def test_should_create_one_record_whit_same_month(self):
@@ -216,3 +222,47 @@ class NubankTaskTestCase(TestCase):
         process_nubank_bank_statements()
 
         self.assertEqual(Records.objects.count(), 0)
+
+    def test_should_return_setup_when_value_is_given(self):
+
+        self._crete_setup(check_value=100, check_value_operator="<")
+
+        setup = get_setup("slug-1", self.name, 150)
+
+        self.assertIsNone(setup)
+
+        setup = get_setup("slug-1", self.name, 99)
+
+        self.assertIsNotNone(setup)
+
+        self._crete_setup(check_value=250, check_value_operator="=")
+
+        self.assertIsNotNone(setup)
+
+        self._crete_setup(check_value=200, check_value_operator=">")
+
+        setup = get_setup("slug-1", self.name, 300)
+
+        self.assertIsNotNone(setup)
+
+    def test_should_return_setup_when_setup_dont_have_check_name(self):
+
+        setup = get_setup("slug-1", self.name)
+
+        self.assertIsNotNone(setup)
+
+        setup = get_setup("slug-1", FamilyMember.objects.create(name="hi"))
+
+        self.assertIsNotNone(setup)
+
+    def test_should_return_setup_when_name_is_given(self):
+        self.setup.check_name = self.name
+        self.setup.save()
+
+        setup = get_setup("slug-1", self.name)
+
+        self.assertIsNotNone(setup)
+
+        setup = get_setup("slug-1", FamilyMember.objects.create(name="hi"))
+
+        self.assertIsNone(setup)

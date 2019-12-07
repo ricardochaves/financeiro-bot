@@ -35,6 +35,8 @@ class NubankBankStatement(models.Model):
 
     is_processed = models.BooleanField(default=False)
 
+    cpf = models.CharField(blank=True, null=True, max_length=12)
+
     def is_credit(self):
         return self._type in ["TransferInEvent"]
 
@@ -55,14 +57,22 @@ class NubankCards(models.Model):
 
     cpf = models.CharField(max_length=11)
     last_login = models.DateTimeField(null=True, blank=True)
+    name = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Name", null=True)
 
 
 class NubankItemSetup(models.Model):
     description = models.CharField(max_length=200)
     description_slug = models.CharField(max_length=200)
+    check_name = models.ForeignKey(
+        FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Name", null=True, related_name="check_name"
+    )
+    check_value = models.IntegerField(null=True, blank=True)
+    check_value_operator = models.CharField(null=True, blank=True, max_length=20)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoria", blank=True, null=True)
-    name = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Nome", null=True)
-    type_entry = models.ForeignKey(TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True)
+    order = models.IntegerField(default=0)
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Category", blank=True, null=True)
+    name = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Name", null=True)
+    type_entry = models.ForeignKey(TypeEntry, on_delete=models.CASCADE, verbose_name="Type", blank=True, null=True)
 
     is_credit = models.BooleanField(default=False)

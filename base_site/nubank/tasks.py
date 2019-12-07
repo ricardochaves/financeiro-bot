@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import List
 from typing import Optional
 
+from base_site.mainapp.models import FamilyMember
 from base_site.mainapp.models import Records
 from base_site.nubank.models import NubankBankStatement
 from base_site.nubank.models import NubankItemSetup
@@ -11,6 +12,7 @@ from base_site.nubank.models import NubankStatement
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from django.db import transaction
+from django.db.models import Q
 from slugify import slugify
 
 
@@ -40,10 +42,31 @@ def _update_statement(s: NubankStatement) -> None:
     s.save()
 
 
-def get_setup(description: str) -> Optional[NubankItemSetup]:
+def get_setup(
+    description: str, name: Optional[FamilyMember] = None, value: Optional[int] = None
+) -> Optional[NubankItemSetup]:
     slug_description = slugify(description, replacements=[["*", ""]])
 
-    return NubankItemSetup.objects.filter(description_slug=slug_description).first()
+    qs_setup = NubankItemSetup.objects.filter(description_slug=slug_description).filter(
+        Q(check_name=name) | Q(check_name__isnull=True)
+    )
+
+    if not value:
+        return qs_setup.first()
+
+    setup = qs_setup.filter(check_value__gt=value, check_value_operator="<").first()
+    if setup:
+        return setup
+
+    setup = qs_setup.filter(check_value__lt=value, check_value_operator=">").first()
+    if setup:
+        return setup
+
+    setup = qs_setup.filter(check_value=value, check_value_operator="=").first()
+    if setup:
+        return setup
+
+    return None
 
 
 def get_values_and_dates(s: NubankStatement) -> List:
