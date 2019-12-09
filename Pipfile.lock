@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d2d5859eb1cda1eb6b22f71cbb90cd540b311482d1874b97862a2e75a8ab7ecf"
+            "sha256": "4c1f81e9f03e3e223a991e08e34a44c8e4a00cf20c6a625d214c95970e1de4cf"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -40,13 +40,6 @@
             ],
             "index": "pypi",
             "version": "==0.15.4"
-        },
-        "asgiref": {
-            "hashes": [
-                "sha256:7e06d934a7718bf3975acbf87780ba678957b87c7adc056f13b6215d610695a0",
-                "sha256:ea448f92fc35a0ef4b1508f53a04c4670255a3f33d22a81c8fc9c872036adbe5"
-            ],
-            "version": "==3.2.3"
         },
         "async-timeout": {
             "hashes": [
@@ -184,11 +177,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:6f857bd4e574442ba35a7172f1397b303167dae964cf18e53db5e85fe248d000",
-                "sha256:d98c9b6e5eed147bc51f47c014ff6826bd1ab50b166956776ee13db5a58804ae"
+                "sha256:a4ad4f6f9c6a4b7af7e2deec8d0cbff28501852e5010d6c2dc695d3d1fae7ca0",
+                "sha256:fa98ec9cc9bf5d72a08ebf3654a9452e761fbb8566e3f80de199cbc15477e891"
             ],
             "index": "pypi",
-            "version": "==3.0"
+            "version": "==2.2.8"
         },
         "django-filter": {
             "hashes": [
@@ -255,8 +248,8 @@
         },
         "et-xmlfile": {
             "hashes": [
-                "sha256:14ce4ccab30f26c8ada031c292b84b9035f36e9b3661d91dfa6199ac19cabe98",
-                "sha256:614d9722d572f6246302c4491846d2c393c199cfa4edc9af593437691683335b"
+                "sha256:614d9722d572f6246302c4491846d2c393c199cfa4edc9af593437691683335b",
+                "sha256:aecf6658fda56244e098808bf5b83eb4fa9522ba1f171e1f19b36f47753b1b84"
             ],
             "version": "==1.0.1"
         },
@@ -584,7 +577,7 @@
         },
         "pycparser": {
             "hashes": [
-                "sha256:55dba0b3ff5a2234038c482447a175be9692ecb02ed67f487db4ff52654920b2",
+                "sha256:64ef332fae8285bd792b193be85a0c9179002e96c3be1528e08e9dbd0b4cea9d",
                 "sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3"
             ],
             "version": "==2.19"
