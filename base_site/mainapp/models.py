@@ -80,3 +80,21 @@ class Records(models.Model):
             models.Index(fields=["name"], name="name_idx"),
             models.Index(fields=["type_entry"], name="type_entry_idx"),
         ]
+
+
+class Goal(models.Model):
+
+    PERIOD_CHOICES = ((1, "This Week"),)
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoria", blank=True, null=True)
+    name_family = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, blank=True, verbose_name="Nome", null=True)
+    type_entry = models.ForeignKey(TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True)
+    name = models.CharField(max_length=40, verbose_name="Name")
+    value = models.DecimalField(max_digits=6, verbose_name="Value", decimal_places=2)
+
+    period = models.IntegerField(choices=PERIOD_CHOICES, verbose_name="Data de Pagamento", default=1)
+
+    enable = models.BooleanField(default=True, verbose_name="Enable")
+
+    def __str__(self):
+        return self.name
