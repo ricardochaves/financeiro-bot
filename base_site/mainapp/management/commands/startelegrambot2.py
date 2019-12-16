@@ -2,19 +2,19 @@ import asyncio
 import logging
 import os
 
+from django.conf import settings
 from pynubank import Nubank
 from qrcode.image.pil import PilImage
 
 import telepot.aio
 import telepot.aio.helper
 from base_site.mainapp.business.command_flow import CommandFlow
-from base_site.mainapp.goals import CalculateGoals
+from base_site.mainapp.goals import get_goals
 from base_site.mainapp.manageconnections import make_sure_mysql_usable
 from base_site.mainapp.models import FullCommand
 from base_site.mainapp.telegram_bot.calendar import Calendar
 from base_site.nubank.models import NubankCards
 from base_site.nubank.nubank_bot import NubankBot
-from django.conf import settings
 from telepot import glance
 from telepot import message_identifier
 from telepot.aio.delegate import create_open
@@ -50,7 +50,6 @@ class Lover(telepot.aio.helper.ChatHandler):
         self.cal = Calendar()
         self._edit_msg_ident = None
         self._editor = None
-        self.goals = None
         self.nu = NubankBot()
 
     async def _cancel_last(self):
@@ -64,7 +63,6 @@ class Lover(telepot.aio.helper.ChatHandler):
         result = self.flow.next(msg)
         if result["done"]:
             await self._close()
-            self.goals.execute_goals()
             return
 
         logger.info(f'message: {result["message"]}')
@@ -100,6 +98,12 @@ class Lover(telepot.aio.helper.ChatHandler):
             await self._send_msg(msg)
             return
 
+        if msg["text"] == "/goals":
+            goals = get_goals()
+            msg = "\n".join([g for g in goals])
+            await self._send_msg(msg)
+            return
+
         n = NubankCards.objects.filter(command_1=msg["text"]).filter()
         if n:
             with open(self.nu.get_qr_code(), "rb") as f:
@@ -119,7 +123,6 @@ class Lover(telepot.aio.helper.ChatHandler):
                 return
 
         if not self.flow:
-            self.goals = CalculateGoals(msg["from"]["id"])
             self.flow = CommandFlow(msg["text"])
             logger.info("Peguei o comando %s e já guardei" % msg["text"])
 

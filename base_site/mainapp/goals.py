@@ -1,13 +1,16 @@
 import asyncio
 import datetime
 import logging
+from typing import Tuple
 
-import telepot
-from base_site.mainapp.models import Records
 from django.conf import settings
 from django.db.models import Func
 from django.db.models import IntegerField
 from django.db.models import Sum
+
+import telepot
+from base_site.mainapp.models import Goal
+from base_site.mainapp.models import Records
 from isoweek import Week
 
 
@@ -54,3 +57,45 @@ class CalculateGoals:
 
         except BaseException as e:
             logging.exception("Error na meta", e)
+
+
+def get_goals():
+
+    goals = Goal.objects.filter(enable=True).all()
+    data = []
+
+    for g in goals:
+        init_date, end_date = get_ini_and_end_date(g)
+
+        qs = Records.objects.all()
+
+        qs = qs.filter(create_date_time__date__range=(init_date, end_date))
+
+        if g.category:
+            qs.filter(category=g.category)
+
+        if g.name_family:
+            qs.filter(name=g.name_family)
+
+        if g.type_entry:
+            qs.filter(type_entry=g.type_entry)
+
+        value = qs.aggregate(total_value=Sum("debit"))["total_value"]
+        can_use = g.value - value
+
+        data.append(f"Goal: {g.name} - Target: {g.value} - Used: {value} - Can Use: {can_use}")
+
+    return data
+
+
+def get_ini_and_end_date(g: Goal) -> Tuple:
+
+    if g.period == 1:
+        week_day = datetime.datetime.now().isocalendar()[1]
+        w = Week(datetime.datetime.now().year, week_day)
+        start_date = w.monday()
+        end_date = w.sunday()
+
+        return start_date, end_date
+
+    raise Exception("Invalid goal.")
