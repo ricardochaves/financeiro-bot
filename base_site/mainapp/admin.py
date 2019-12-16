@@ -1,9 +1,11 @@
+from django.contrib import admin
+
 from base_site.mainapp.models import Category
 from base_site.mainapp.models import FamilyMember
 from base_site.mainapp.models import FullCommand
+from base_site.mainapp.models import Goal
 from base_site.mainapp.models import Records
 from base_site.mainapp.models import TypeEntry
-from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 
 admin.site.register(FullCommand)
@@ -18,6 +20,10 @@ class FamilyMemberAdmin(ImportExportModelAdmin):
 
 
 class TypeEntryAdmin(ImportExportModelAdmin):
+    pass
+
+
+class GoalAdmin(ImportExportModelAdmin):
     pass
 
 
@@ -40,3 +46,4 @@ admin.site.register(Records, RecordsAdmin)
 admin.site.register(TypeEntry, TypeEntryAdmin)
 admin.site.register(FamilyMember, FamilyMemberAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Goal, GoalAdmin)
