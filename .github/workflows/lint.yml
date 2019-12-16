@@ -1,39 +1,14 @@
-name: Python application
+name: Python Lint
 
 on: [pull_request]
 
 jobs:
-  build:
+  lint:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+    - uses: ricardochaves/python-lint@master
       with:
-        python-version: 3.7
-    - name: Install pylint dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint pylint_django
-    - name: Lint with pylint
-      run: |
-        pylint base_site
-        pylint tests
-    - name: Install pycodestyle dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pycodestyle
-    - name: Lint with pycodestyle
-      run: |
-        pycodestyle base_site
-        pycodestyle tests
-    - name: Install flake8 dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8
-    - name: Lint with flake8
-      run: |
-        flake8 base_site
-        flake8 tests
+        python-root-list: 'base_site tests'
