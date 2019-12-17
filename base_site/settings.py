@@ -15,10 +15,10 @@ from logging import Formatter
 from typing import Optional
 
 import sentry_sdk
-from pythonjsonlogger.jsonlogger import JsonFormatter
+# SECURITY WARNING: keep the secret key used in production secret!
+from base_site.setup.log import JsonFormatter
 from sentry_sdk.integrations.django import DjangoIntegration
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     "django_q",
     "import_export",
     "health_check",
-    #"health_check.db",
+    # "health_check.db",
     "health_check.storage",
     "request_id_django_log",
     "base_site.nubank",
