@@ -2,6 +2,7 @@ import json
 import uuid
 from decimal import Decimal
 
+from django.utils import timezone
 from pynubank import Nubank
 from qrcode.image.pil import PilImage
 
@@ -11,7 +12,6 @@ from base_site.nubank.models import NubankSession
 from base_site.nubank.models import NubankStatement
 from base_site.settings import NUBANK_CPF
 from dateutil.parser import parse
-from django.utils import timezone
 
 
 class NubankBot:
@@ -100,5 +100,6 @@ class NubankBot:
                 "amount": Decimal(a["amount"]),
                 "post_date": a["postDate"],
                 "_type": a["__typename"],
+                "cpf": card.cpf,
             }
             NubankBankStatement.objects.get_or_create(nubank_id=a["id"], defaults=defaults)
