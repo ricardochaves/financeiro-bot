@@ -81,7 +81,7 @@ def get_goals():
             qs.filter(type_entry=g.type_entry)
 
         value = qs.aggregate(total_value=Sum("debit"))["total_value"]
-        can_use = g.value - value
+        can_use = g.value - value if value else 0
 
         data.append(f"Goal: {g.name} - Target: {g.value} - Used: {value} - Can Use: {can_use}")
 
