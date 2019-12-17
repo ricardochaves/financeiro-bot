@@ -1,18 +1,20 @@
 import uuid
 from datetime import datetime
 
+from django.test import TestCase
+from django.utils import timezone
+
 from base_site.mainapp.models import Category
 from base_site.mainapp.models import FamilyMember
 from base_site.mainapp.models import Records
 from base_site.mainapp.models import TypeEntry
 from base_site.nubank.models import NubankBankStatement
+from base_site.nubank.models import NubankCards
 from base_site.nubank.models import NubankItemSetup
 from base_site.nubank.models import NubankStatement
 from base_site.nubank.tasks import get_setup
 from base_site.nubank.tasks import process_nubank_bank_statements
 from base_site.nubank.tasks import process_nubank_statements
-from django.test import TestCase
-from django.utils import timezone
 
 
 class NubankTaskTestCase(TestCase):
@@ -21,6 +23,8 @@ class NubankTaskTestCase(TestCase):
         self.category = Category.objects.create(name="test")
         self.name = FamilyMember.objects.create(name="test")
         self.type_entry = TypeEntry.objects.create(name="test")
+
+        self.card = NubankCards.objects.create(command_1="1", command_2="1a", cpf="87654678976", name=self.name)
 
         self.setup = self._crete_setup()
 
@@ -169,6 +173,8 @@ class NubankTaskTestCase(TestCase):
 
     def test_should_create_credit_record_from_bank(self):
 
+        self._crete_setup(check_value=90, check_value_operator=">")
+
         NubankBankStatement.objects.create(
             created_at=timezone.now(),
             nubank_id=uuid.uuid4(),
@@ -177,6 +183,7 @@ class NubankTaskTestCase(TestCase):
             amount=100,
             post_date=timezone.now().date(),
             _type="TransferInEvent",
+            cpf="87654678976",
         )
 
         process_nubank_bank_statements()
@@ -189,6 +196,8 @@ class NubankTaskTestCase(TestCase):
 
     def test_should_create_debit_record_from_bank(self):
 
+        self._crete_setup(check_value=100, check_value_operator="=")
+
         NubankBankStatement.objects.create(
             created_at=timezone.now(),
             nubank_id=uuid.uuid4(),
@@ -197,6 +206,7 @@ class NubankTaskTestCase(TestCase):
             amount=100,
             post_date=timezone.now().date(),
             _type="TransferOutEvent",
+            cpf="87654678976",
         )
 
         process_nubank_bank_statements()
@@ -217,6 +227,7 @@ class NubankTaskTestCase(TestCase):
             amount=100,
             post_date=timezone.now().date(),
             _type="NOT_FOUND",
+            cpf="87654678976",
         )
 
         process_nubank_bank_statements()
@@ -232,15 +243,12 @@ class NubankTaskTestCase(TestCase):
         self.assertIsNone(setup)
 
         setup = get_setup("slug-1", self.name, 99)
-
         self.assertIsNotNone(setup)
 
         self._crete_setup(check_value=250, check_value_operator="=")
-
         self.assertIsNotNone(setup)
 
         self._crete_setup(check_value=200, check_value_operator=">")
-
         setup = get_setup("slug-1", self.name, 300)
 
         self.assertIsNotNone(setup)
@@ -266,3 +274,23 @@ class NubankTaskTestCase(TestCase):
         setup = get_setup("slug-1", FamilyMember.objects.create(name="hi"))
 
         self.assertIsNone(setup)
+
+    def test_should_not_create_credit_record_from_bank(self):
+
+        self._crete_setup(check_value=150, check_value_operator=">")
+
+        NubankBankStatement.objects.create(
+            created_at=timezone.now(),
+            nubank_id=uuid.uuid4(),
+            title="slug-1",
+            detail="detail 1",
+            amount=100,
+            post_date=timezone.now().date(),
+            _type="TransferInEvent",
+            cpf="87654678976",
+        )
+
+        process_nubank_bank_statements()
+        process_nubank_bank_statements()
+
+        self.assertEqual(Records.objects.count(), 0)

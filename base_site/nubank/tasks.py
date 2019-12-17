@@ -4,15 +4,17 @@ from decimal import Decimal
 from typing import List
 from typing import Optional
 
+from django.db import transaction
+from django.db.models import Q
+
 from base_site.mainapp.models import FamilyMember
 from base_site.mainapp.models import Records
 from base_site.nubank.models import NubankBankStatement
+from base_site.nubank.models import NubankCards
 from base_site.nubank.models import NubankItemSetup
 from base_site.nubank.models import NubankStatement
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
-from django.db import transaction
-from django.db.models import Q
 from slugify import slugify
 
 
@@ -45,6 +47,7 @@ def _update_statement(s: NubankStatement) -> None:
 def get_setup(
     description: str, name: Optional[FamilyMember] = None, value: Optional[int] = None
 ) -> Optional[NubankItemSetup]:
+
     slug_description = slugify(description, replacements=[["*", ""]])
 
     qs_setup = NubankItemSetup.objects.filter(description_slug=slug_description).filter(
@@ -114,7 +117,9 @@ def process_nubank_bank_statements():
     statements = NubankBankStatement.objects.filter(is_processed=False).all()
 
     for s in statements:
-        setup = get_setup(s.title)
+        card = NubankCards.objects.filter(cpf=s.cpf).first()
+
+        setup = get_setup(s.title, card.name, s.amount)
 
         if not (s.is_credit() or s.is_debit()):
             continue
