@@ -118,7 +118,7 @@ class Lover(telepot.aio.helper.ChatHandler):
                 await self._send_msg("Iniciando o processamento")
 
                 self.nu.set_nubank_command(n)
-                self.nu.execute(cm[1], cm)
+                self.nu.execute(cm[1], n)
 
                 return
 
