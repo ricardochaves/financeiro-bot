@@ -1,10 +1,8 @@
 import asyncio
 import logging
-import os
 
+from django import db
 from django.conf import settings
-from pynubank import Nubank
-from qrcode.image.pil import PilImage
 
 import telepot.aio
 import telepot.aio.helper
@@ -82,6 +80,8 @@ class Lover(telepot.aio.helper.ChatHandler):
             self.close()
         except BaseException as e:
             logger.info(f"Error: {e}")
+
+        db.connections.close_all()
 
     async def _send_msg(self, msg, keyboard=None):
         sent = await self.sender.sendMessage(msg, reply_markup=keyboard)
