@@ -15,7 +15,6 @@ from logging import Formatter
 from typing import Optional
 
 import sentry_sdk
-
 # SECURITY WARNING: keep the secret key used in production secret!
 from base_site.setup.log import JsonFormatter
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -215,4 +214,3 @@ NUBANK_PASSWORD = os.getenv("NUBANK_PASSWORD")
 
 ALELO_CPF = os.getenv("ALELO_CPF")
 ALELO_PASSWORD = os.getenv("ALELO_PASSWORD")
-ALELO_CARD_LAST_NUMBER = os.getenv("ALELO_CARD_LAST_NUMBER")

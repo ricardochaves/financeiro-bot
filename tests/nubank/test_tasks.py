@@ -196,12 +196,12 @@ class NubankTaskTestCase(TestCase):
 
     def test_should_create_debit_record_from_bank(self):
 
-        self._crete_setup(check_value=100, check_value_operator="=")
+        self._crete_setup(desc="transferencia-recebida", check_value=100, check_value_operator="=")
 
         NubankBankStatement.objects.create(
             created_at=timezone.now(),
             nubank_id=uuid.uuid4(),
-            title="slug-1",
+            title="Transferência recebida",
             detail="detail 1",
             amount=100,
             post_date=timezone.now().date(),
@@ -277,12 +277,12 @@ class NubankTaskTestCase(TestCase):
 
     def test_should_not_create_credit_record_from_bank(self):
 
-        self._crete_setup(check_value=150, check_value_operator=">")
+        self._crete_setup(desc="transferencia-recebida", check_value=150, check_value_operator=">")
 
         NubankBankStatement.objects.create(
             created_at=timezone.now(),
             nubank_id=uuid.uuid4(),
-            title="slug-1",
+            title="Transferência recebida",
             detail="detail 1",
             amount=100,
             post_date=timezone.now().date(),

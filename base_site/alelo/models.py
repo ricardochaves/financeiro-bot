@@ -1,7 +1,8 @@
+from django.db import models
+
 from base_site.mainapp.models import Category
 from base_site.mainapp.models import FamilyMember
 from base_site.mainapp.models import TypeEntry
-from django.db import models
 
 
 class AleloItem(models.Model):
@@ -23,3 +24,9 @@ class AleloItemSetup(models.Model):
     type_entry = models.ForeignKey(TypeEntry, on_delete=models.CASCADE, verbose_name="Tipo", blank=True, null=True)
 
     is_credit = models.BooleanField(default=False)
+
+
+class AleloCard(models.Model):
+
+    name = models.CharField(max_length=30)
+    last_numbers = models.CharField(max_length=4)
