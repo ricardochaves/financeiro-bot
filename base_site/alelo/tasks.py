@@ -23,7 +23,7 @@ def execute_alelo_api():
 
     for c in cards:
         if c.last_numbers in numbers:
-            transactions = a.get_transactions(c, TransactionsTime.LAST_FOUR_MONTHS)
+            transactions = a.get_transactions(c, TransactionsTime.LAST_FIFTY_DAYS)
 
             for t in transactions["transactions"]:
                 item_date_time = datetime.strptime(t["date"] + "/" + str(datetime.now().year), "%d/%m/%Y")
