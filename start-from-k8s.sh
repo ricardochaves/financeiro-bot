@@ -9,5 +9,5 @@ then
     gunicorn -cpython:gunicorn_config -b ${DJANGO_BIND_ADDRESS}:${DJANGO_BIND_PORT} base_site.wsgi
 else
     echo "Using 0.0.0.0:8000"
-    gunicorn -cpython:gunicorn_config -b 0.0.0.0:8000 base_site.wsgi
+    gunicorn -cpython:gunicorn_config -b 0.0.0.0:8080 base_site.wsgi
 fi
