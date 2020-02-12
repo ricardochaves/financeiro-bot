@@ -203,11 +203,11 @@
         },
         "django-q": {
             "hashes": [
-                "sha256:4fb1974efc5952100eddad1734f03795e70a1dd2663cc085b7df374f3c6312c3",
-                "sha256:70081f58c6d78748d8664acbf028fb641687c36df38d3d31e9f1b6fcfac1079f"
+                "sha256:6a51d4153bfbfe09c0b382fd5687ba10c9695ade9467b73e416272dbb6d77cef",
+                "sha256:cd2b054ae8f95a5cc67ae7533621069e4e879a578b27ce7454179c3145832613"
             ],
             "index": "pypi",
-            "version": "==1.0.2"
+            "version": "==1.1.0"
         },
         "django-rest-swagger": {
             "hashes": [
@@ -940,10 +940,10 @@
         },
         "virtualenv": {
             "hashes": [
-                "sha256:7e4e234e1f27755685dc54063d989756790b0682d60e304db589fa1604938013",
-                "sha256:e0099edd03c77e14a8ac9be62e45af28759984075d9409bb2c3a4edeb7420a23"
+                "sha256:526484e29a9a12f0680d251331e7841b36f1e2b918935377f173f764b1b8be89",
+                "sha256:ec376274f5abb6da25e0ef81d082d2884cda8fd924e1ff73b4c2bb5416d48c87"
             ],
-            "version": "==20.0.2"
+            "version": "==20.0.3"
         },
         "wcwidth": {
             "hashes": [
