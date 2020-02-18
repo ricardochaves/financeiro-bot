@@ -203,11 +203,11 @@
         },
         "django-q": {
             "hashes": [
-                "sha256:4fb1974efc5952100eddad1734f03795e70a1dd2663cc085b7df374f3c6312c3",
-                "sha256:70081f58c6d78748d8664acbf028fb641687c36df38d3d31e9f1b6fcfac1079f"
+                "sha256:835b591ddff588104b5cb495c62b949d2330b01426159144b63919fd491bc808",
+                "sha256:da7dd0ab5caed1080e5d7c28c3594e1211c174eca2aff848ce44dc05093532a5"
             ],
             "index": "pypi",
-            "version": "==1.0.2"
+            "version": "==1.2.0"
         },
         "django-rest-swagger": {
             "hashes": [
@@ -278,10 +278,10 @@
         },
         "google-auth": {
             "hashes": [
-                "sha256:44549e69ac39acf41fdf47f3f39a06e4e68378476806760d94a2c6a361b2bb06",
-                "sha256:b2d83edc02a9deeed9b1b839046671fd9eda223d21bd2dd50051559787032fd8"
+                "sha256:1ee22e22f35d6e00f068d7b3999b2ce24ecb5d0dcbd485aa6896d2b83c8907d6",
+                "sha256:28a848d47c55075a0f29d7e26b7a213515c137ab8f0670e546e46d1277060e47"
             ],
-            "version": "==1.11.0"
+            "version": "==1.11.2"
         },
         "google-auth-httplib2": {
             "hashes": [
@@ -669,10 +669,10 @@
         },
         "tablib": {
             "hashes": [
-                "sha256:02ef7d074763fb690f696f09b51448614388099bc3b685b118be24152259cf5a",
-                "sha256:ff3172802e8dd7fb795867942f5238f6c90e2d4e90ad6233c1a796cdfc63bb35"
+                "sha256:4d1909aa3ff1c85ba97ad16176c0aeec33c8e894dc7ea6f10f2dd44701e99ba7",
+                "sha256:80f6c3453431cedf1125f23d16b3d96b92b426495714ebf0b4dede1fa75b447d"
             ],
-            "version": "==1.0.0"
+            "version": "==1.1.0"
         },
         "telepot": {
             "hashes": [
@@ -940,10 +940,10 @@
         },
         "virtualenv": {
             "hashes": [
-                "sha256:7e4e234e1f27755685dc54063d989756790b0682d60e304db589fa1604938013",
-                "sha256:e0099edd03c77e14a8ac9be62e45af28759984075d9409bb2c3a4edeb7420a23"
+                "sha256:08f3623597ce73b85d6854fb26608a6f39ee9d055c81178dc6583803797f8994",
+                "sha256:de2cbdd5926c48d7b84e0300dea9e8f276f61d186e8e49223d71d91250fbaebd"
             ],
-            "version": "==20.0.2"
+            "version": "==20.0.4"
         },
         "wcwidth": {
             "hashes": [
@@ -954,10 +954,10 @@
         },
         "zipp": {
             "hashes": [
-                "sha256:5c56e330306215cd3553342cfafc73dda2c60792384117893f3a83f8a1209f50",
-                "sha256:d65287feb793213ffe11c0f31b81602be31448f38aeb8ffc2eb286c4f6f6657e"
+                "sha256:12248a63bbdf7548f89cb4c7cda4681e537031eda29c02ea29674bc6854460c2",
+                "sha256:7c0f8e91abc0dc07a5068f315c52cb30c66bfbc581e5b50704c8a2f6ebae794a"
             ],
-            "version": "==2.2.0"
+            "version": "==3.0.0"
         }
     }
 }
