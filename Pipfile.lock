@@ -546,10 +546,10 @@
         },
         "pynubank": {
             "hashes": [
-                "sha256:c0d214e7aee7b00a8e822d2ea619b54693fc3e1c3b3816e3419eb2681ec84fdd"
+                "sha256:440be1a17b92cf8edc81ab6349002f6555ca813c924a006e87b18e8a5da517bf"
             ],
             "index": "pypi",
-            "version": "==1.0.1"
+            "version": "==1.2.0"
         },
         "python-alelo": {
             "hashes": [
