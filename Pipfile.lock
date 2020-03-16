@@ -203,11 +203,11 @@
         },
         "django-q": {
             "hashes": [
-                "sha256:4fb1974efc5952100eddad1734f03795e70a1dd2663cc085b7df374f3c6312c3",
-                "sha256:70081f58c6d78748d8664acbf028fb641687c36df38d3d31e9f1b6fcfac1079f"
+                "sha256:2c96e950db3c1034f77a9c5904150407fbc4fbfb15ecc175619e2ee82e91a61e",
+                "sha256:60f251b1a0754988ed6594604114f26e4d5d480b955064dc505dcce4031ba8e8"
             ],
             "index": "pypi",
-            "version": "==1.0.2"
+            "version": "==1.2.1"
         },
         "django-rest-swagger": {
             "hashes": [
