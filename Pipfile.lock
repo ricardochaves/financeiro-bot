@@ -180,11 +180,11 @@
         },
         "django-health-check": {
             "hashes": [
-                "sha256:06efac9dcd30eb83c3d0184b834d7d86467bdb710da361f20c2c28853d7e6a5e",
-                "sha256:c9bcc1b3ef77db3a9ba2d33585916707963cbb958220689f77741235f5fa553a"
+                "sha256:0563827e003d25fd4d9ebbd7467dea5f390435628d645aaa63f8889deaded73a",
+                "sha256:9e6b7d93d4902901474efd4e25d31b5aaea7563b570c0260adce52cd3c3a9e36"
             ],
             "index": "pypi",
-            "version": "==3.11.1"
+            "version": "==3.12.1"
         },
         "django-import-export": {
             "hashes": [
