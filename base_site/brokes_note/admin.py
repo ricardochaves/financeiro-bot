@@ -19,6 +19,12 @@ class BrokersNoteItemInline(admin.TabularInline):
 
 
 class BrokersNoteAdmin(admin.ModelAdmin):
+    list_display = (
+        "date",
+        "broker",
+        "final_value",
+        "link",
+    )
 
     inlines = [
         BrokersNoteItemInline,
