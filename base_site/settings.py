@@ -15,6 +15,7 @@ from logging import Formatter
 from typing import Optional
 
 import sentry_sdk
+
 # SECURITY WARNING: keep the secret key used in production secret!
 from base_site.setup.log import JsonFormatter
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     "request_id_django_log",
     "base_site.nubank",
     "base_site.alelo",
+    "base_site.brokes_note",
 ]
 
 MIDDLEWARE = [
